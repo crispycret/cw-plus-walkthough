@@ -4,11 +4,12 @@ Walkthrough each contract in the cw-plus repository.
 cw-plus work notes
 
 # Resource commands
-`junod tx bank send [from_key_or_address] [to_address] [amount] [flags]`
-`junod query bank balances [address] [flags]`
+```
+junod tx bank send [from_key_or_address] [to_address] [amount] [flags]
+junod query bank balances [address] [flags]
 
-`junod tx bank send $(junod keys show unsafe-test -a) juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9 40000000ujuno --generate-only`
-
+junod tx bank send $(junod keys show unsafe-test -a) juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9 40000000ujuno --generate-only
+```
 # Denomiations and values
 The Metric System prefix u is micro or millionths which is 0.000001 of the base
 
