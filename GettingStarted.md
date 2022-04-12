@@ -52,7 +52,6 @@ When creating a new account you must provide an 8 character password. I just use
 Here are the commands and the resulting file of account information.
 
 ```
-
 junod keys add master
 
 juno keys add reserve
