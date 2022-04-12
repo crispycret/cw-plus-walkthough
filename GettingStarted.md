@@ -21,6 +21,9 @@ docker run -it \
 ```
 
 After the juno daemon is running we can import juno's unsafe key that we will use to allocate funds to a different address.
+
+## Import The Unsafe Key
+
 Run the below command and import the seed phrase to recover the account.
 
 ```
@@ -34,21 +37,20 @@ clip hire initial neck maid actor venue client foam budget lock catalog sweet st
 
 Now that we have the unsafe key names `unsafe-test` we will create a few more juno accounts to store, instatiate and interact with the contracts.
 
+
+## Create Juno Accounts
+
 We want to create a `master` key that will be used for storing and instatiating contracts.
-
 Then we want to create a `reserve` key that will be used to fund all other accounts.
-
 Then we want to create 3 more accounts that will act as `admins` for the contracts.
-
 Then we want to create 3 more accounts that will act as `users` of the contracts.
 
-After the creation of each new key store it's address and seed phrase in a file.
+After the creation of each new key, store it's address and seed phrase in a file.
 This is insecure, but since this is for localhost testing and not production we don't need to worry.
 When creating a new account you must provide an 8 character password. I just use password for ease of use in testing.
 
 Here are the commands and the resulting file of account information.
 
-## Create Juno Accounts
 ```
 
 junod keys add master
@@ -65,8 +67,10 @@ juno keys add user-c
 ```
 
 ## Juno Account Information File
+
+After copying and stripping away irrelevant information this is what my accounts file looks like.
+
 ```
-### Keys
 # Top
 unsafe-test: juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y
 
