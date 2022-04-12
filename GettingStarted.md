@@ -10,7 +10,7 @@ Before starting this series we must do the following.
 
 Run this juno docker image. Do not modify the default address in the docker command as we will be using it.
 
-`
+```
 docker run -it \
   -p 26656:26656 \
   -p 26657:26657 \
@@ -18,14 +18,19 @@ docker run -it \
   -e UNSAFE_CORS=true \
   ghcr.io/cosmoscontracts/juno:v2.1.0 \
   ./setup_and_run.sh juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y
-`
+```
 
 After the juno daemon is running we can import juno's unsafe key that we will use to allocate funds to a different address.
 Run the below command and import the seed phrase to recover the account.
 
-`junod keys add unsafe-test --recover`
+```
+junod keys add unsafe-test --recover
+```
 
-Seed: `clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose`
+Seed Phrase: 
+```
+clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose
+```
 
 Now that we have the unsafe key names `unsafe-test` we will create a few more juno accounts to store, instatiate and interact with the contracts.
 
@@ -129,18 +134,18 @@ We do it this way just so we can familarize ourselves with the juno cli a little
 junod tx bank send unsafe-test $(junod keys show reserve -a) 20000000ujunox --chain-id testing
 
 junod tx bank send reserve $(junod keys show admin-a -a) 15000000ujunox --chain-id testing
-junod tx bank send admin-a $(junod keys show admin-b -a) 5000000ujunox --chain-id testing
+junod tx bank send admin-a $(junod keys show admin-b -a) 10000000ujunox --chain-id testing
 junod tx bank send admin-b $(junod keys show admin-c -a) 5000000ujunox --chain-id testing
 ```
 
-Now that the admin accounts have juno lets send some to the user accounts and top off the `reserve` account one more time.
+Now that the admin accounts each have 5 juno lets send some to the user accounts and top off the `reserve` account one more time.
 
 ```
 junod tx bank send reserve $(junod keys show user-a -a) 1000000ujunox --chain-id testing
-junod tx bank send admin-a $(junod keys show user-b -a) 1000000ujunox --chain-id testing
-junod tx bank send admin-b $(junod keys show user-c -a) 1000000ujunox --chain-id testing
+junod tx bank send reserve $(junod keys show user-b -a) 1000000ujunox --chain-id testing
+junod tx bank send reserve $(junod keys show user-c -a) 1000000ujunox --chain-id testing
 
-junod tx bank send unsafe-test $(junod keys show reserve -a) 20000000ujunox --chain-id testing
+junod tx bank send unsafe-test $(junod keys show reserve -a) 18000000ujunox --chain-id testing
 ```
 
 
