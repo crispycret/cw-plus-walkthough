@@ -57,9 +57,9 @@ junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-p
 
 ## Instantiate:
 
-`
+```
 junod tx wasm instantiate 3 '{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y", "juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
-`
+```
 
 
 #### Contract Address: 
