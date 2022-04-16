@@ -1,0 +1,106 @@
+
+#Run the local testnet
+docker run -it \
+  -p 26656:26656 \
+  -p 26657:26657 \
+  -e STAKE_TOKEN=ujunox \
+  -e UNSAFE_CORS=true \
+  ghcr.io/cosmoscontracts/juno:v2.1.0 \
+  ./setup_and_run.sh juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y
+
+
+# Follow tutorial for setup
+https://docs.junonetwork.io/smart-contracts-and-junod-development/tutorial-cw1/download-compile-store
+
+# Navigate to cw-plus directory
+
+# Build all contracts
+sudo docker run --rm -v "$(pwd)":/code \
+  --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
+  --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
+  cosmwasm/workspace-optimizer:0.11.3
+
+
+# Store contract
+junod tx wasm store cw1_subkeys.wasm  --from test --chain-id testing \
+  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+
+# Or to store use
+TX=$(junod tx wasm store cw1_subkeys.wasm  --from test --chain-id=testing --gas auto --output json -y | jq -r '.txhash')
+CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
+
+
+#Instantiate contract
+junod tx wasm instantiate <code-id> '{"admins":["<your-validator-self-delegate-key>"],"mutable":false}' --amount 50000ujunox --label "CW1 example contract" --from <your-key> --chain-id <chain-id> \
+  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+
+junod tx wasm instantiate 1 '{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y"],"mutable":false}' --amount 50000ujunox --label "CW1 example contract" --from test --chain-id testing \
+  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+
+# Find contract address
+junod query wasm list-contract-by-code <code-id>
+junod query wasm list-contract-by-code 1
+
+
+
+
+
+#contract address
+# From Store
+juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8
+
+# From instantiate
+juno1suhgf5svhu4usrurvxzlgn54ksxmn8gljarjtxqnapv8kjnp4nrsf8smqw
+
+# From listing
+
+
+
+#x2 
+juno1yyca08xqdgvjz0psg56z67ejh9xms6l436u8y58m82npdqqhmmtqyry7z5
+
+
+
+
+
+
+# Query commands
+junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"allowance":{"spender":"juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y"}}' --chain-id testing
+
+junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"admin_list":{}}' --chain-id testing
+
+junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"all_allowances":{}}' --chain-id testing
+
+
+# Execute commands
+junod tx wasm execute juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 \
+  '{"increase_allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl","amount":{"denom":"ujunox","amount":"2000000"}}}' \
+  --from juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y \
+  --chain-id testing \
+  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+
+junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl"}}' --chain-id testing
+
+
+junod q bank balances <key-C>
+
+
+junod tx wasm execute <contract-addr> \
+  '{"execute":{"msgs":[{"bank":{"send":{"to_address":"<key-C>","amount":[{"denom":"ujunox","amount":"500"}]}}}]}}' \
+  --from <key-B> \
+  --chain-id <chain-id> \
+  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+
+
+junod q bank balances <key-C>
+
+
+junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl"}}' --chain-id testing
+
+
+
+
+
+
+
+
