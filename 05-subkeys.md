@@ -1,25 +1,4 @@
 
-#Run the local testnet
-docker run -it \
-  -p 26656:26656 \
-  -p 26657:26657 \
-  -e STAKE_TOKEN=ujunox \
-  -e UNSAFE_CORS=true \
-  ghcr.io/cosmoscontracts/juno:v2.1.0 \
-  ./setup_and_run.sh juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y
-
-
-# Follow tutorial for setup
-https://docs.junonetwork.io/smart-contracts-and-junod-development/tutorial-cw1/download-compile-store
-
-# Navigate to cw-plus directory
-
-# Build all contracts
-sudo docker run --rm -v "$(pwd)":/code \
-  --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
-  --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
-  cosmwasm/workspace-optimizer:0.11.3
-
 
 # Store contract
 junod tx wasm store cw1_subkeys.wasm  --from test --chain-id testing \
@@ -96,11 +75,5 @@ junod q bank balances <key-C>
 
 
 junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl"}}' --chain-id testing
-
-
-
-
-
-
 
 

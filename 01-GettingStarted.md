@@ -213,6 +213,7 @@ This will generate the following files in `~/.juno/config/`
 #### Download the genesis file
 ```
 curl https://raw.githubusercontent.com/CosmosContracts/testnets/main/$CHAIN_ID/genesis.json > ~/.juno/config/genesis.json
+curl https://raw.githubusercontent.com/CosmosContracts/testnets/main/uni-2/genesis.json > ~/.juno/config/genesis.json
 ```
 
 This will replace the `genesis.json` file created using the `junod init` command with a genesis file that preloads an account with `ujunox`.
@@ -230,7 +231,8 @@ clip hire initial neck maid actor venue client foam budget lock catalog sweet st
 ```
 
 
-## Start the Juno Testnet using Docker.
+## Start the Juno Testnet using Dockls
+lser.
 Run this juno docker image. Do not modify command as we will be using the address baked into the command.
 
 ```

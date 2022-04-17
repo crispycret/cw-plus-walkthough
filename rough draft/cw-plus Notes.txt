@@ -1,0 +1,27 @@
+
+#Run the local testnet
+docker run -it \
+  -p 26656:26656 \
+  -p 26657:26657 \
+  -e STAKE_TOKEN=ujunox \
+  -e UNSAFE_CORS=true \
+  ghcr.io/cosmoscontracts/juno:v2.1.0 \
+  ./setup_and_run.sh juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y
+
+
+# Follow tutorial for setup
+https://docs.junonetwork.io/smart-contracts-and-junod-development/tutorial-cw1/download-compile-store
+
+# Navigate to cw-plus directory
+
+# Build all contracts
+sudo docker run --rm -v "$(pwd)":/code \
+  --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
+  --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
+  cosmwasm/workspace-optimizer:0.11.3
+
+
+
+
+
+
