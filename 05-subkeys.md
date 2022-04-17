@@ -7,7 +7,7 @@ junod tx wasm store cw1_subkeys.wasm  --from unsafe-test --chain-id testing \
 ```
 
 
-# Or to store use
+# Or Storing while storing TX and Contrant ID Code
 ```
 TX=$(junod tx wasm store cw1_subkeys.wasm  --from test --chain-id=testing --gas auto --output json -y | jq -r '.txhash')
 CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
@@ -15,7 +15,7 @@ CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attribut
 
 # Instantiate contract
 ```
-junod tx wasm instantiate <code-id> '{"admins":["<your-validator-self-delegate-key>"],"mutable":false}' --amount 50000ujunox --label "CW1 example contract" --from <your-key> --chain-id <chain-id> \
+junod tx wasm instantiate <code-id> '{"admins":["$master"],"mutable":false}' --amount 50000ujunox --label "CW1 example contract" --from <your-key> --chain-id <chain-id> \
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
 
