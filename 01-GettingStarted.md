@@ -1,4 +1,4 @@
-# CosmWasmResourceBook
+# CW Plus Walkthrough Guid
 
 Blockchain technology has obviously captured the attention of a substantial number of people, some of whom are aspiring developers, a group that I belong to. But, at least for me, the learning curve is equivalent to the Mongells trying to overcome great wall of China. 
  
@@ -11,7 +11,7 @@ Enough story telling lets get into it.
 Obviously the first thing is to setup the environment, lets start there. 
 
 
-## Environment Setup
+# Environment Setup
 
 I will assume that because it's 2022 your setup is Windows 10/11 runing `WSL2`.
 If you don't know what I'm talking about or simply wish to following along, check out the resource below before moving on.
@@ -25,7 +25,7 @@ Cooming Soon. A few resources I need to compile to make this as straight forward
 
 
 
-### WSL2 Installation
+## WSL2 Installation
 As of now the `WSL2 Installation` steps aren't tested. They are built from resources and memory. I will take some time to walk through these steps myself on a fresh machine to test and make revisions where nessecary.
 
 https://pureinfotech.com/install-windows-subsystem-linux-2-windows-10/
@@ -36,7 +36,7 @@ https://stackoverflow.com/questions/46413149/share-folder-between-windows-and-ws
 
 
 
-#### Basic Dependencies for install juno
+## Basic Dependencies for install juno
 
 
 Run the following commands to finish he basic dependencies.
@@ -52,16 +52,16 @@ sudo apt-get install make build-essential gcc git jq chrony -y
 
 
 
-##### SSH Setup
+### SSH Setup
 
 
 
-##### Install Docker
+### Install Docker
 For WSL2 Install the Docker Desltop Application on windows.
 
 
 
-##### Install Rust
+### Install Rust
 
 First, install rustup. 
 
@@ -83,7 +83,7 @@ rustup target add wasm32-unknown-unknown
 
 
 
-##### Install Go
+### Install Go
 
 Download GO source
 ```
@@ -111,18 +111,18 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 After saving those changes run `source ~/.profile` for the changes to take place, or restart your shell.
 
 
-##### Install Git
+### Install Git
 
 ###### Configure git to use ssh.
 Always remember when cloning a repo to reformat the url to git@github.com:user/the-repository.git.
 
 
-### Install Juno
+# Install Juno
 
 This is taken directly from the Juno Docs with some steps ommitted and added.
 https://docs.junonetwork.io/smart-contracts-and-junod-development/getting-started
 
-#### Download
+### Download
 Clone the Juno repository. Fetch. Checkout the current `testnet` version.
 
 ```
@@ -145,7 +145,7 @@ git checkout v2.1.0
 ```
 
 
-#### Building
+### Building
 Using this version of the repo we can now build. Make sure you are still in the juno directory.
 '''
 make install
@@ -163,7 +163,7 @@ You can see that the github `version-tag` we used for checkout is the version th
 
 
 
-#### Configuring the environment.
+### Configuring the environment.
 
 The following section in the offical docs sets these system variables only for the current shell session. They do not persist when the shell is closed. I will assume that you will forget that you even set system variables when you come back later on. So, we will add these system variables in the `~/.profile` file so that they persist. Afterwards, you won't need to worry about these variables again.
 
@@ -195,11 +195,11 @@ sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025ujunox\"/
 ```
 
 
-### Setting up the Node
+## Juno Node Setup
 Were almost done with the setup, just a few more steps.
 Note: We are only setting up a node not a validator. See https://docs.junonetwork.io/validators/joining-the-testnets#setting-up-the-node for how to upgrade your node to a validator.
 
-#### Initialize the chain
+### Initialize the chain
 ```
 junod init "$MONIKER_NAME --chain-id $CHAIN_ID
 ```
@@ -210,15 +210,14 @@ This will generate the following files in `~/.juno/config/`
 * priv_validator_key.json
 
 
-#### Download the genesis file
+### Download the genesis file
 ```
-curl https://raw.githubusercontent.com/CosmosContracts/testnets/main/$CHAIN_ID/genesis.json > ~/.juno/config/genesis.json
 curl https://raw.githubusercontent.com/CosmosContracts/testnets/main/uni-2/genesis.json > ~/.juno/config/genesis.json
 ```
 
 This will replace the `genesis.json` file created using the `junod init` command with a genesis file that preloads an account with `ujunox`.
 
-#### Import Unsafe Key
+### Import Unsafe Key
 The `genesis.json` file allocates juno to the public unsafe test key which we will import now
 
 ```
@@ -231,7 +230,7 @@ clip hire initial neck maid actor venue client foam budget lock catalog sweet st
 ```
 
 
-## Start the Juno Testnet using Dockls
+## Start the Juno Testnet using Docker
 lser.
 Run this juno docker image. Do not modify command as we will be using the address baked into the command.
 
