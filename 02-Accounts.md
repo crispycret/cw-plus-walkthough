@@ -6,10 +6,9 @@
 
 Now that we have the unsafe key names `unsafe-test` we will create a few more juno accounts to store, instatiate and interact with the contracts.
 
-We want to create a `master` key that will be used for storing and instatiating contracts.
-Then we want to create a `reserve` key that will be used to fund all other accounts.
-Then we want to create 3 more accounts that will act as `admins` for the contracts.
-Then we want to create 3 more accounts that will act as `users` of the contracts.
+* We want to create a `master` key that will be used for storing and instatiating contracts.
+* Then we want to create 3 more accounts that will act as `admins` for the contracts.
+* Then we want to create 3 more accounts that will act as `users` of the contracts.
 
 After the creation of each new key, store it's address and seed phrase in a file.
 This is insecure, but since this is for localhost testing and not production we don't need to worry.
