@@ -13,7 +13,7 @@ TX=$(junod tx wasm store cw1_subkeys.wasm  --from test --chain-id=testing --gas 
 CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
 ```
 
-#Instantiate contract
+# Instantiate contract
 ```
 junod tx wasm instantiate <code-id> '{"admins":["<your-validator-self-delegate-key>"],"mutable":false}' --amount 50000ujunox --label "CW1 example contract" --from <your-key> --chain-id <chain-id> \
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
