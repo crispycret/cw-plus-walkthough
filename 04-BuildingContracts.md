@@ -1,7 +1,8 @@
 
 
-## Building Contracts
- The first thing we must do is build all the contracts. Thankfully we can compile them all at once with the following command.
+# Building Contracts
+
+To interact with smart contracts on the blockchain we must first build/compile all the contracts. We can compile them all at once with the following command.
 
 ```
 sudo docker run --rm -v "$(pwd)":/code \
@@ -12,19 +13,16 @@ sudo docker run --rm -v "$(pwd)":/code \
 
 This will take a while.
 
-## Ready to Store Contracts
 
-Now that all the contracts are compiled we can store them onto the juno blockchain.
+## Ready to Use Contracts
 
-
-
-
-# Next Chapter
-##### [05-cw1-whitelist.md](05-cw1-whitelist.md)
+Now that all the contracts are compiled we can start to store them onto our local juno testing blockchain.
 
 
-# Previous Chapter
-#### [03-Funding.md](03-Funding.md)
+## [Next Chapter - 05 CW1 Whitelist](05-cw1-whitelist.md)
+
+
+## [Previous Chapter - 03 Funding](03-Funding.md)
 
 
 
