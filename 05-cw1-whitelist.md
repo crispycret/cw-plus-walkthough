@@ -1,22 +1,32 @@
 # CW1 Whitelist
 
+
 ## Description
 
-This contract allows admins of a contract to be set. If the contract variable `mutable=true` then admins can be added or removed. If `mutable=false` then the admins that were set at the instantiation of the contract will be the only admins allowed for this contract and `mutable` cannot be set to `true`
+This contract allows admins of a contract to be set. If the contract variable `mutable=true` then admins can be added or removed. If `mutable=false` then the admins that were set at the instantiation of the contract will be the only admins allowed for this contract and once `mutable=false` it never again be equal to `true`.
+
+
+### Format
+
+For commands that output important information there will be two versions of doing the same thing. The first method will be the offical way to store, instantiate, and intreact with contracts while the second version of the same command incorporates `bash` to find and store important values such as the `transaction hash, code id, and contract address` as temporary environment variables which can be set to persist through new shell sessions if more steps are taken. 
+
 
 # Store Contract
 
 Storing the contract on the blockchain will result in the output of the contracts id. The `code id` is the index of stored contracts on the blockchain and is important to note down.
 
-### Raw Storing of contract
-This method of storing the contract does not auto track the `code id` of the contract and requires you to find the `code id` of the stored the contract from the output.
+
+#### Method 1
+
+This method of storing the contract on the blockchain does not track the `code id` of the contract and requires you to find the `code id` from the output.
 
 ```
 junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
    
 
-### OR, Store the contracts 'Store' TX Hash and the CODE ID as temporary environment variables
+#### Method 2 Store the contracts TX Hash and the CODE ID as temporary environment variables
+
 ```
 cd artifacts
 
@@ -24,21 +34,38 @@ CW1_WHITELIST_STORE_TX=$(junod tx wasm store cw1_whitelist.wasm  --from master -
 
 CW1_WHITELIST_CODE_ID=$(junod query tx $CW1_WHITELIST_STORE_TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
 ```
- 
+
+#### Store the Contract Address as Environment Variable For Persistence between sessions (OPTIONAL)
+
+Add these lines to the bottom of `~/.profile`.  
+
+```
+export CW1_WHITELIST_CODE_ID=<Your Code ID>
+export CW1_WHITELIST_CONTRACT_ADDRESS=<Your Contracts Address>
+```
+
  
 
 # Instantiate Contract
-To instantiate the contract we must reference the contracts `code id`. The contract instantiation output will contain inside of it the `contract address`. Again, the first command is the raw method to instantiate the contract while the second method stores the `contract address` as a temporary environment variable.
+
+To instantiate the contract we must reference the contracts `code id`. 
+
+The contract instantiation output will contain inside of it the `contract address`. 
+
 
 When instantiating if no admin(s) is designated than the uploader of the contract will become the sole admin of the contract. We want to set the variable `mutable` as true so that after instantiation admins can be removed or added by other admins.
 
-### Raw Instantiation of contract
+#### Method 1: 
+
+If you did not use `Method 2` to store the contract replace $CW1_WHITELIST_CODE_ID with your contract code id you found from the output.
+
+You can etiher directly replace `<ADMIN_ADDRESS_1>, <Admin_Address_2>` with your admin addresses or you can use `Method 2` bakes in the admin addresses if you have setup the environment variables.
 
 ```
 junod tx wasm instantiate $CW1_WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>", "<ADMIN_ADDRESS_2>"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
 
-You can etiher directly replace `<ADMIN_ADDRESS_1>, <Admin_Address_2>` with your admin addresses or you can use the following commands which bakes in the admin addresses if you have setup the environment variables.
+#### Method 2:
 
 ```
 ## Bakes Admin A and Admin B into the contract by escaping double quotes .
@@ -51,14 +78,6 @@ junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$
 CW1_WHITELIST_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r '.logs[0].events[2].attributes[0].value')
 ```
 
-#### Store the Contract Address as Environment Variable
-
-Add these lines to the bottom of `~/.profile`.  
-
-```
-export CW1_WHITELIST_CODE_ID=<Your Code ID>
-export CW1_WHITELIST_CONTRACT_ADDRESS=<Your Contracts Address>
-```
 
 
 
