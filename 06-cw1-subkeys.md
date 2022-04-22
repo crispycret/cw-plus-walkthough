@@ -76,8 +76,8 @@ junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcm
   
   
   
-## [Next Chapter - 05 CW1 Whitelist](05-cw1-whitelist.md)
+## [Next Chapter - 07 CW3 Fixed Multisig](07-cw3-fixed-multisig.md)
 
 
-## [Previous Chapter - 07 Fixed Multisig](07-fixed-multisig.md)
+## [Previous Chapter - 05 CW1 Whitelist](05-cw1-whitelist.md)
 
