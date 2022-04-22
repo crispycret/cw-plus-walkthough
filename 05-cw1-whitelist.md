@@ -1,4 +1,4 @@
-# CW1-Whitelist
+# CW1 Whitelist
 
 ## Description
 
