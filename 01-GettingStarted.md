@@ -201,7 +201,7 @@ Note: We are only setting up a node not a validator. See https://docs.junonetwor
 
 ### Initialize the chain
 ```
-junod init "$MONIKER_NAME --chain-id $CHAIN_ID
+junod init $MONIKER_NAME --chain-id $CHAIN_ID
 ```
 
 This will generate the following files in `~/.juno/config/`
