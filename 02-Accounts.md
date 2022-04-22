@@ -81,3 +81,11 @@ export user_b=juno1w8g0lsmgvtdhrl6tuw7rcrruma0gzpav3ydvkm
 export user_c=juno1r9ztg5rxkyekrgmt760qscum5hatvpfy6gf3s5
 ```
 
+
+# Next Chapter
+[03-BuildingContracts.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/03-Funding.md)
+
+
+# Previous Chapter
+[01-Accounts.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/02-Accounts.md)
+
