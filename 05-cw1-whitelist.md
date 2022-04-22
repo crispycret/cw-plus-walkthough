@@ -42,6 +42,8 @@ You can etiher directly replace `<ADMIN_ADDRESS_1>` with your admin address or y
 ```
 junod tx wasm instantiate $CW1WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 
+CW1WHITELIST_CONTRACT_ADDRESS= $(junod tx wasm instantiate $CW1WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y | jq -r '.logs[0].events[2].attributes[0].value')
+
 ```
 
 From the output of the above command you can locate the `contract address` or you can copy the `tx hash` and run a query to locate the contract address
