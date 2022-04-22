@@ -19,14 +19,18 @@ The result of instantiating the contract will display to us the contract address
 
  We will instantiate the contract by providing two admins (admin-a and admin-b) and we allow admins modification (add/remove) by setting `mutable` to true.
 
-`junod tx wasm instantiate 3 '{"admins":["$(junod keys show admin-a -a)", "$(junod keys show admin-b -a)"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y`
+```
+junod tx wasm instantiate 3 '{"admins":["$admin_a", "$admin_b"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+```
 
 
 From the output of the above command you can locate the `contract address` or you can copy the `tx hash` and run a query to locate the contract address
 
-$TX=
+
 
 ```
+$TX=
+
 junod tx query $TX
 ```
 
@@ -44,18 +48,24 @@ This will show us the contract address.
 
 
 
-    Query:
-`junod query wasm contract-state smart juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"admin_list":{}}' --chain-id testing`
+## Query:
+```
+junod query wasm contract-state smart juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"admin_list":{}}' --chain-id testing
+```
 
-`junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block`
+```
+junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+```
 
-    Execute:
+##Execute:
 
-`junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t \
+```
+junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t \
   '{"increase_allowance":{"spender":"<key-B>","amount":{"denom":"ujunox","amount":"2000000"}}}' \
   --from <admin-key-A> \
   --chain-id <chain-id> \
-  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block `
+  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
+```
 
 
 
