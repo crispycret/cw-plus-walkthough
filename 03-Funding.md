@@ -76,7 +76,7 @@ Now that we have accounts funded with juno let's start interacting with the cont
 
 
 # Next Chapter
-[04-BuildingContracts.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/03-Funding.md)
+[04-BuildingContracts.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/04-BuildingContracts.md)
 
 
 # Previous Chapter
