@@ -37,34 +37,18 @@ junod query wasm list-contract-by-code 1
 
 
 
-##contract address
-# From Store
-juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8
-
-## From instantiate
-juno1suhgf5svhu4usrurvxzlgn54ksxmn8gljarjtxqnapv8kjnp4nrsf8smqw
-
-## From listing
-
-
-
-##x2 
-juno1yyca08xqdgvjz0psg56z67ejh9xms6l436u8y58m82npdqqhmmtqyry7z5
-
-
-
-
-
 
 ## Query commands
+```
 junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"allowance":{"spender":"juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y"}}' --chain-id testing
 
 junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"admin_list":{}}' --chain-id testing
 
 junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"all_allowances":{}}' --chain-id testing
-
+```
 
 ## Execute commands
+```
 junod tx wasm execute juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 \
   '{"increase_allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl","amount":{"denom":"ujunox","amount":"2000000"}}}' \
   --from juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y \
@@ -88,5 +72,12 @@ junod q bank balances <key-C>
 
 
 junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl"}}' --chain-id testing
+```
+  
+  
+  
+## [Next Chapter - 05 CW1 Whitelist](05-cw1-whitelist.md)
 
+
+## [Previous Chapter - 07 Fixed Multisig](07-fixed-multisig.md)
 
