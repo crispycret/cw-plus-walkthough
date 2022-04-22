@@ -11,6 +11,10 @@ This contract allows admins of a contract to be set. If the contract variable `m
 For commands that output important information there will be two versions of doing the same thing. The first method will be the offical way to store, instantiate, and intreact with contracts while the second version of the same command incorporates `bash` to find and store important values such as the `transaction hash, code id, and contract address` as temporary environment variables which can be set to persist through new shell sessions if more steps are taken. 
 
 
+
+
+
+
 # Store Contract
 
 Storing the contract on the blockchain will result in the output of the contracts id. The `code id` is the index of stored contracts on the blockchain and is important to note down.
@@ -47,6 +51,8 @@ Add this line to the bottom of `~/.profile` and add your code id.
 export CW1_WHITELIST_CODE_ID=<CodeID>
 ```
 
+ 
+ 
  
 
 # Instantiate Contract
@@ -87,17 +93,48 @@ export CW1_WHITELIST_CONTRACT_ADDRESS=<ContractAddress>
 
 
 
+
+
 # Query:
+
+Before we start inspecting the smart contract lets first examine the blockchain to see our contract.
+
+
+### Examine Blockchain
+```
+# Show number of contracts stored on-chain
+junod q wasm list-code
+
+# Show the number of instantiations of our contract
+junod q wasm list-contract-by-code $CW1_WHITELIST_CODE_ID
+```
+
+### Examine the Contract
+
+Display the admins of this contract.
+
 ```
 junod query wasm contract-state smart $CW1_WHITELIST_CONTRACT_ADDRESS '{"admin_list":{}}' --chain-id testing
 ```
 
 
+
+
+
+
 # Execute:
+
+We have stored, initalized and queried the contract. Now it is time to make alterations with to the state of the contract.
+
+The functionality of `CW1 Whitelist` is pretty limited. Let's update the admins of the contract. If you want to add an admin you must also include all current admins when updating the contract otherwise that account will no longer be an admin.
 
 ```
 junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
+
+
+
+
 
 
 ## [Next Chapter - 06 CW1 Subkeys](06-cw1-subkeys.md)
