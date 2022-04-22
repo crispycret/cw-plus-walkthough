@@ -20,11 +20,11 @@ Now that all the contracts are compiled we can store them onto the juno blockcha
 
 
 # Next Chapter
-[05-cw1-whitelist.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/05-cw1-whitelist.md)
+##### [05-cw1-whitelist.md](05-cw1-whitelist.md)
 
 
 # Previous Chapter
-[03-Funding.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/03-Funding.md)
+#### [03-Funding.md](03-Funding.md)
 
 
 
