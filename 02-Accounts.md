@@ -94,10 +94,10 @@ export USER_C=juno1pz65jurpjjfmhwusqhv8d9mruyyty4845wm767
 ```
 
 
-# Next Chapter
+# [Next Chapter - 03 Funding](03-Funding.md)
 ##### [03-BuildingContracts.md](03-Funding.md)
 
 
-# Previous Chapter
+# [Previous Chapter - 01 Getting Started](01-GettingStarted.md)
 #### [01-GettingStarted.md](01-GettingStarted.md)
 
