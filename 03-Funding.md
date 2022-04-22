@@ -74,3 +74,10 @@ junod query bank balances $(junod keys show user-c -a)
 
 Now that we have accounts funded with juno let's start interacting with the contracts.
 
+
+# Next Chapter
+[04-BuildingContracts.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/03-Funding.md)
+
+
+# Previous Chapter
+[02-Accounts.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/02-Accounts.md)
