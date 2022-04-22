@@ -8,7 +8,7 @@ This contract allows admins of a contract to be set. If the contract variable `m
 
 Storing the contract on the blockchain will result in the output of the contracts id. The `code id` is the index of stored contracts on the blockchain and is important to note down.
 
-#### Raw Storing of contract
+### Raw Storing of contract
 This method of storing the contract does not auto track the `code id` of the contract and requires you to find the `code id` of the stored the contract from the output.
 
 ```
@@ -16,46 +16,57 @@ junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-p
 ```
    
 
-#### Store the contract and store the TX Hash and the CODE ID as temporary environment variables
+### OR, Store the contracts 'Store' TX Hash and the CODE ID as temporary environment variables
 ```
 cd artifacts
-CW1WHITELIST_TX=$(junod tx wasm store cw1_subkeys.wasm  --from <your-key> --chain-id=<chain-id> --gas auto --output json -y | jq -r '.txhash')
+CW1WHITELIST_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from <your-key> --chain-id=<chain-id> --gas auto --output json -y | jq -r '.txhash')
 CW1WHITELIST_CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
 ```
  
 
 ## Instantiate Contract
+To instantiate the contract we must reference the contracts `code id`. The contract instantiation output will contain inside of it the `contract address`. Again, the first command is the raw method to instantiate the contract while the second method stores the `contract address` as a temporary environment variable.
 
-Using the `code id` we can instantiate the contract to create an instance of the contract on-chain.
+When instantiating if no admin(s) is designated than the uploader of the contract will become the sole admin of the contract. We want to set the variable `mutable` as true so that after instantiation admins can be removed or added by other admins.
 
-The result of instantiating the contract will display to us the contract address if you look around good enough for it and a `tx hash` that we can use to locate the contract address directly. 
-
- We will instantiate the contract by providing two admins (admin-a and admin-b) and we allow admins modification (add/remove) by setting `mutable` to true.
+### Raw Instantiation of contract
 
 ```
-junod tx wasm instantiate 3 '{"admins":["$admin_a", "$admin_b"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+junod tx wasm instantiate $CW1WHITELIST_CODE_ID '{"admins":["$admin_a", "$admin_b"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
-
 
 From the output of the above command you can locate the `contract address` or you can copy the `tx hash` and run a query to locate the contract address
 
-
+```
 
 ```
-$TX=
 
+#### Locate Contract Address from query.
+```
 junod tx query $TX
+```
+#### Store the Contract Address as Environment Variable
+```
+CW1WHITELIST_CONTRACT_ADDRESS=<Your Contracts Address>
+```
+
+### OR, Store the contracts 'Instantiation' TX Hash and the CODE ID as temporary environment variables
+```
+Method not yet deveolped!!!
+
+CW1WHITELIST_INSTANTIATE_TX=
+CW1WHITELIST_CONTRACT_ADDRESS=
 ```
 
 This will show us the contract address.
 
-    Contract Addresses: 
-    Not mutable Contracts
-    juno1fzm6gzyccl8jvdv3qq6hp9vs6ylaruervs4m06c7k0ntzn2f8faqxt5lvx 
+ Contract Addresses: 
+ Not mutable Contracts
+ juno1fzm6gzyccl8jvdv3qq6hp9vs6ylaruervs4m06c7k0ntzn2f8faqxt5lvx 
 
 
-    Mutable Contracts
-    juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t Mutable
+ Mutable Contracts
+ juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t Mutable
 
 
 
