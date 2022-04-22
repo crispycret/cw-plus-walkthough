@@ -41,9 +41,20 @@ sudo docker run --rm -v "$(pwd)":/code \
 This contract allows admins of a contract to be set. If the contract variable `mutable=true` then admins can be added or removed. If `mutable=false` then the admins that were set at the instantiation of the contract will be the only admins allowed for this contract and `mutable` cannot be set to `true`
 
 ### Store
+```
+```
+
 ### Instantiate
+```
+```
+
 ### Query
+```
+```
+
 ### Execute
+```
+```
 
 
 
@@ -54,6 +65,8 @@ This contract allows admins of a contract to be set. If the contract variable `m
 This contract incorporartes cw1-whitelist and therefore has all of the same functionality. It expands functionality by allowing allowances of a native token to be set by admins.
 
 ### Store
+```
+```
 
 ### Instantiate
 ```
@@ -65,8 +78,12 @@ CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attribut
 ```
 
 ### Query
+```
+```
 
 ### Execute
+```
+```
 
 
 
@@ -75,11 +92,24 @@ CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attribut
 #CW3 Fixed Multisig
 
 ### Descripion:
+Description of CW2 Fixed Multisig
 
 ### Store
+```
+```
+
 ### Instantiate
+```
+```
+
 ### Query
+```
+```
+
 ### Execute
+```
+```
+
 
 
 
@@ -88,9 +118,23 @@ CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attribut
 #CW3 Flex Multisig
 
 ### Descripion:
+Description of CW2 Fixed Multisig
 
 ### Store
+```
+```
+
 ### Instantiate
+```
+```
+
 ### Query
+```
+```
+
 ### Execute
+```
+```
+
+
 
