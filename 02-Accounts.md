@@ -94,8 +94,8 @@ export USER_C=juno1pz65jurpjjfmhwusqhv8d9mruyyty4845wm767
 ```
 
 
-# [Next Chapter - 03 Funding](03-Funding.md)
+## [Next Chapter - 03 Funding](03-Funding.md)
 
 
-# [Previous Chapter - 01 Getting Started](01-GettingStarted.md)
+## [Previous Chapter - 01 Getting Started](01-GettingStarted.md)
 
