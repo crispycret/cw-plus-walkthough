@@ -28,4 +28,4 @@ EXECUTE:
 ## [Next Chapter - CW1 Subkeys.md](06-cw1-subkeys.md)
 
 
-## [Previous Chapter - CW3 Flex Multisig](07-cw3-flex-multisig.md)
+## [Previous Chapter - CW3 Flex Multisig](08-cw3-flex-multisig.md)
