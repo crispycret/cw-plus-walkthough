@@ -278,11 +278,9 @@ pagination:
 ```
 
 
-# Next Chapter
-#### [Chapter 02-Accounts](02-Accounts.md)
+## [Next Chapter - 02 Accounts](02-Accounts.md)
 
-# Previous Chapter
-#### [README.md](README.md)
+## [Previous Chapter - README](README.md)
 
 
 ## Crediting Sources:
