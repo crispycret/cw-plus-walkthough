@@ -19,8 +19,10 @@ junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-p
 ### OR, Store the contracts 'Store' TX Hash and the CODE ID as temporary environment variables
 ```
 cd artifacts
-CW1WHITELIST_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from master --chain-id=testing --gas auto --output json -y | jq -r '.txhash')
-CW1WHITELIST_CODE_ID=$(junod query tx $CW1WHITELIST_STORE_TX --output json | jq -r '.code')
+
+CW1WHITELIST_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from master --chain-id=testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block --output json -y | jq -r '.txhash')
+
+CW1WHITELIST_CODE_ID=$(junod query tx $CW1WHITELIST_STORE_TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
 ```
  
 
