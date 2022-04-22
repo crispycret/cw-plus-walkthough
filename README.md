@@ -25,7 +25,12 @@ junod query bank balances [address] [flags]
 
 
 # Build All Contracts
-
+```
+sudo docker run --rm -v "$(pwd)":/code \
+  --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
+  --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
+  cosmwasm/workspace-optimizer:0.11.3
+```
 
 
 
@@ -42,15 +47,25 @@ This contract allows admins of a contract to be set. If the contract variable `m
 
 
 
-# CW Subkeys:
+# CW1 Subkeys:
 
 ### Descripion:
 
 This contract incorporartes cw1-whitelist and therefore has all of the same functionality. It expands functionality by allowing allowances of a native token to be set by admins.
 
 ### Store
+
 ### Instantiate
+```
+junod tx wasm instantiate $CW1SUBKEYS_CODE '{"admins":["$admin_a", "$admin_b"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+
+cd artifacts
+TX=$(junod tx wasm store cw1_subkeys.wasm  --from <your-key> --chain-id=<chain-id> --gas auto --output json -y | jq -r '.txhash')
+CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
+```
+
 ### Query
+
 ### Execute
 
 
