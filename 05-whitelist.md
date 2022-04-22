@@ -1,15 +1,28 @@
 # CW1-Whitelist
 
+## Description
 
+This contract allows admins of a contract to be set. If the contract variable `mutable=true` then admins can be added or removed. If `mutable=false` then the admins that were set at the instantiation of the contract will be the only admins allowed for this contract and `mutable` cannot be set to `true`
 
 ## Store Contract
 
-Storing the contract on the blockchain will result in the output of the contracts id. The `code id` is the index of stored contracts on the blockchain.  
+Storing the contract on the blockchain will result in the output of the contracts id. The `code id` is the index of stored contracts on the blockchain and is important to note down.
 
-`junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y`
+#### Raw Storing of contract
+This method of storing the contract does not auto track the `code id` of the contract and requires you to find the `code id` of the stored the contract from the output.
 
-Code ID: 1
-    
+```
+junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+```
+   
+
+#### Store the contract and store the TX Hash and the CODE ID as temporary environment variables
+```
+cd artifacts
+CW1WHITELIST_TX=$(junod tx wasm store cw1_subkeys.wasm  --from <your-key> --chain-id=<chain-id> --gas auto --output json -y | jq -r '.txhash')
+CW1WHITELIST_CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
+```
+ 
 
 ## Instantiate Contract
 
