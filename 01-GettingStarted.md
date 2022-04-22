@@ -278,10 +278,11 @@ pagination:
 ```
 
 
-[Chapter 02-Accounts](https://github.com/crispycret/cw-plus-walkthrough/blob/main/02-Accounts.md)
+## Next Chapter
+#### [Chapter 02-Accounts](https://github.com/crispycret/cw-plus-walkthrough/blob/main/02-Accounts.md)
 
 
-Crediting Sources:
+## Crediting Sources:
 * [Offical Juno Documentation](https://docs.junonetwork.io/juno/readme): https://docs.junonetwork.io/juno/readme
  
  
