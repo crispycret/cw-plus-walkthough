@@ -19,11 +19,21 @@ We start with 1000000000 ujunox or 100 juno.
 ```
 junod tx bank send [from_key_or_address] [to_address] [amount] [flags]
 junod query bank balances [address] [flags]
+```
+
+### Example
+```
+
+junod tx bank send unsafe-test $MASTER 10000000ujunox
+junod query bank balances $UNSAFE_TEST 
+junod query bank balances $MASTER
 
 ```
 
 
 # Build All Contracts
+Navigate to the root folder of the cw-plus folder and run the following command to build all contracts at once.
+
 ```
 sudo docker run --rm -v "$(pwd)":/code \
   --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
