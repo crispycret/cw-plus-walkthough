@@ -20,7 +20,7 @@ Now that all the contracts are compiled we can store them onto the juno blockcha
 
 
 # Next Chapter
-[05-cw1-whitelis.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/05-cw1-whitelis.md)
+[05-cw1-whitelist.md](https://github.com/crispycret/cw-plus-walkthrough/edit/main/05-cw1-whitelist.md)
 
 
 # Previous Chapter
