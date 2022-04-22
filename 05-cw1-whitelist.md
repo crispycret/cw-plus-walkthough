@@ -20,7 +20,7 @@ junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-p
 ```
 cd artifacts
 CW1WHITELIST_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from master --chain-id=testing --gas auto --output json -y | jq -r '.txhash')
-CW1WHITELIST_CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
+CW1WHITELIST_CODE_ID=$(junod query tx $CW1WHITELIST_STORE_TX --output json | jq -r '.code')
 ```
  
 
