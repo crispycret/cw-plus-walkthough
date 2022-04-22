@@ -2,10 +2,31 @@
 Walkthrough each contract in the cw-plus repository. See `01-GettingStarted` for instructions on getting a testnet up and running. 
 
 
-# Denomiations and values
+
+# Table Of Contents
+
+### Setup
+#### [01-GettingStarted.md](01-GettingStarted.md)
+#### [02-Accounts.md](01-GettingStarted.md)
+#### [03-Funding.md](03-Funding.md)
+
+### Cw-Plus Contracts
+#### [04-BuildingContracts.md](04-BuildingContracts.md)
+#### [05-cw1-whitelist.md](05-cw1-whitelist.md)
+#### [06-cw1-subkeys.md](06-cw1-subkeys.md)
+#### [07-fixed-multisig.md](07-fixed-multisig.md)
+#### [08-flex-multisig.md](08-flex-multisig.md)
+
+
+
+# Things to Know:
+
+
+## Denomiations and values
 The Metric System prefix u is micro or millionths which is 0.000001 of the base
 
-### UNSURE ABOUT THIS PART
+#### UNSURE ABOUT THIS PART
+
 We start with 1000000000 ujunox or 100 juno.
 
 ```
@@ -15,13 +36,13 @@ We start with 1000000000 ujunox or 100 juno.
 ```
 
 
-# Resource commands
+## Resource commands
 ```
 junod tx bank send [from_key_or_address] [to_address] [amount] [flags]
 junod query bank balances [address] [flags]
 ```
 
-### Example
+#### Example
 ```
 
 junod tx bank send unsafe-test $MASTER 10000000ujunox
@@ -41,6 +62,9 @@ sudo docker run --rm -v "$(pwd)":/code \
   cosmwasm/workspace-optimizer:0.11.3
 ```
 
+
+
+# Walkthough Summary:
 
 
 # CW1 Whitelist:
