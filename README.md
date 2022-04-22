@@ -6,13 +6,12 @@ Walkthrough each contract in the cw-plus repository. See `01-GettingStarted` for
 The Metric System prefix u is micro or millionths which is 0.000001 of the base
 
 ### UNSURE ABOUT THIS PART
-We start out with 1000 juno.
+We start with 1000000000 ujunox or 100 juno.
 
 ```
 1 juno = 1000000 ujunox
 10 juno = 10000000 ujunox
 100 juno = 1000000000 ujunox
-1000 juno = 10000000000 ujunox
 ```
 
 
