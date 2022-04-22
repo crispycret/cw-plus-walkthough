@@ -87,5 +87,5 @@ export user_c=juno1r9ztg5rxkyekrgmt760qscum5hatvpfy6gf3s5
 
 
 # Previous Chapter
-#### [01-Accounts.md](02-Accounts.md)
+#### [01-GettingStarted.md](01-GettingStarted.md)
 
