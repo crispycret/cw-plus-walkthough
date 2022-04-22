@@ -25,6 +25,10 @@ CW1WHITELIST_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from master --ch
 CW1WHITELIST_CODE_ID=$(junod query tx $CW1WHITELIST_STORE_TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
 ```
  
+ 
+ 
+ 
+ ## ___________________________________________________________________________________________________________________________________________________________________________
 
 ## Instantiate Contract
 To instantiate the contract we must reference the contracts `code id`. The contract instantiation output will contain inside of it the `contract address`. Again, the first command is the raw method to instantiate the contract while the second method stores the `contract address` as a temporary environment variable.
@@ -40,9 +44,14 @@ junod tx wasm instantiate $CW1WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>",
 You can etiher directly replace `<ADMIN_ADDRESS_1>` with your admin address or you can use the following commands which bakes in the admin addresses if you have setup the environment variables.
 
 ```
+## Bakes Admin A and Admin B into the contract.
+
 junod tx wasm instantiate $CW1WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 
-CW1WHITELIST_CONTRACT_ADDRESS= $(junod tx wasm instantiate $CW1WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y | jq -r '.logs[0].events[2].attributes[0].value')
+
+# Does the same as the above but stores the contract address in the variable CW1WHITELIST_CONTRACT_ADDRESS
+
+CW1WHITELIST_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r '.logs[0].events[2].attributes[0].value')
 
 ```
 
@@ -52,34 +61,14 @@ From the output of the above command you can locate the `contract address` or yo
 
 ```
 
-#### Locate Contract Address from query.
-```
-junod tx query $TX
-```
 #### Store the Contract Address as Environment Variable
+Open up the file `~/.profile` and add this line at the bottom
 ```
-CW1WHITELIST_CONTRACT_ADDRESS=<Your Contracts Address>
-```
-
-### OR, Store the contracts 'Instantiation' TX Hash and the CODE ID as temporary environment variables
-```
-Method not yet deveolped!!!
-
-CW1WHITELIST_INSTANTIATE_TX=
-CW1WHITELIST_CONTRACT_ADDRESS=
+export CW1WHITELIST_CODE_ID=<Your Code ID>
+export CW1WHITELIST_CONTRACT_ADDRESS=<Your Contracts Address>
 ```
 
-This will show us the contract address.
-
- Contract Addresses: 
- Not mutable Contracts
- juno1fzm6gzyccl8jvdv3qq6hp9vs6ylaruervs4m06c7k0ntzn2f8faqxt5lvx 
-
-
- Mutable Contracts
- juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t Mutable
-
-
+ ## ___________________________________________________________________________________________________________________________________________________________________________
 
 
 
