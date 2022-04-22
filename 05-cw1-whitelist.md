@@ -89,34 +89,16 @@ export CW1_WHITELIST_CONTRACT_ADDRESS=<ContractAddress>
 
 # Query:
 ```
-junod query wasm contract-state smart juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"admin_list":{}}' --chain-id testing
+junod query wasm contract-state smart $CW1_WHITELIST_CONTRACT_ADDRESS '{"admin_list":{}}' --chain-id testing
 ```
 
 
 # Execute:
 
 ```
-junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
 
-```
-junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t \
-  '{"increase_allowance":{"spender":"<key-B>","amount":{"denom":"ujunox","amount":"2000000"}}}' \
-  --from <admin-key-A> \
-  --chain-id <chain-id> \
-  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
-```
-
-
-# Update admin list to include admin-a
-# juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562
-```
-junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t \
-'{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57", "juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}' --from unsafe-test --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
-
-junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"execute":{"msgs":[{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57","juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9","juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
-```
- 
 
 # Next Chapter
 #### [Chapter 06-cw1-subkeys](06-cw1-subkeys.md)
@@ -124,6 +106,8 @@ junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzsl
 
 # Previous Chapter
 #### [04-BuildingContracts.md](04-BuildingContracts.md)
+
+
 
 .
 
@@ -140,6 +124,30 @@ junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzsl
 
 
 # RAW Notes (IGNORE)
+
+
+```
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
+  '{"increase_allowance":{"spender":"<key-B>","amount":{"denom":"ujunox","amount":"2000000"}}}' \
+  --from <admin-key-A> \
+  --chain-id <chain-id> \
+  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
+```
+
+
+# Update admin list to include admin-a
+```
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
+'{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57", "juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}' --from unsafe-test --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
+
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"execute":{"msgs":[{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57","juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9","juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
+```
+ 
+
+
+
+
+
 
 ### CW1-Whitelist:
 ##### Hypothosis: 
