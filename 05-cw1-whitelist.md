@@ -123,26 +123,53 @@ junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzsl
 
 # RAW Notes (IGNORE)
 
+### CW1-Whitelist:
+##### Hypothosis: 
+
+I believe this contract is only used to set admins of the contract.
+By itself this contract can only allow the publisher to set the admins. 
+Those admins can then mayber set an admin if they have high enough rights.
+Admins can be added that cannot be removed and admins can be added that can be removed.
+
+##### Conclusion:
+<Explain What I know Here>
+
+
+#### Readable JSON Of an Execute Message
+```
+{
+  execute: {
+    msgs: [{
+      bank: {
+        send: {
+          to_address: "<key-C>",
+          amount: [{
+            denom: "ujunox",
+            amount: "500"
+          }]
+        }
+      }
+    }]
+  }
+};
+```
 
 
 
 
+#### Serialize Contract Message As Proper JSON
+```
+'{"execute":{"msgs":[{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57","juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9","juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}]}}'
+```
+
+#### Execute the Message  
+```
+junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"execute":{"msgs":[{"custom":{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57","juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9","juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}}]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
+```
 
 
-
-
-
-
-CW1-Whitelist:
-    Hypothosis: 
-        I believe this contract is only used to set admins of the contract.
-        By itself this contract can only allow the publisher to set the admins. 
-        Those admins can then mayber set an admin if they have high enough rights.
-        Admins can be added that cannot be removed and admins can be added that can be removed.
-
-    Conclusion:
-
-
+#### Extended Contract Message
+```
 {
     execute: {
         msgs: [
@@ -174,33 +201,7 @@ CW1-Whitelist:
         }]
     }
 };
-
-
-'{"execute":{"msgs":[{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57","juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9","juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}]}}'
-
-junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"execute":{"msgs":[{"custom":{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57","juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9","juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}}]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
-
-
-
-{
-  execute: {
-    msgs: [{
-      bank: {
-        send: {
-          to_address: "<key-C>",
-          amount: [{
-            denom: "ujunox",
-            amount: "500"
-          }]
-        }
-      }
-    }]
-  }
-};
-
-
-
-
+```
 
 
 
