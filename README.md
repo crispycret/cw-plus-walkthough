@@ -87,9 +87,7 @@ CODE_ID=$(junod query tx $TX --output json | jq -r '.logs[0].events[-1].attribut
 
 
 
-
-
-#CW3 Fixed Multisig
+# CW3 Fixed Multisig
 
 ### Descripion:
 Description of CW2 Fixed Multisig
@@ -115,7 +113,7 @@ Description of CW2 Fixed Multisig
 
 
 
-#CW3 Flex Multisig
+# CW3 Flex Multisig
 
 ### Descripion:
 Description of CW2 Fixed Multisig
