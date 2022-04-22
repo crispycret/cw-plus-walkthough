@@ -117,9 +117,13 @@ junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzsl
 
 
 
+# Next Chapter
+#### [Chapter 06-cw1-subkeys](06-cw1-subkeys.md)
 
-## Next Chapter
-#### [Chapter 06-cw1-subkeys](https://github.com/crispycret/cw-plus-walkthrough/blob/main/06-cw1-subkeys.md)
+
+# Previous Chapter
+#### [04-BuildingContracts.md](04-BuildingContracts.md)
+
 
 
 
