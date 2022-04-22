@@ -67,6 +67,9 @@ user-c: juno1r9ztg5rxkyekrgmt760qscum5hatvpfy6gf3s5
 vault elbow neck twin garden waste first ridge warfare license split anger swim vague one stool worry oval egg omit supreme child wedding pottery
 ```
 
+
+## Store Important Values as Environment Variables
+
 If you want to take some extra time to store the public keys as environment variables then you should put something similar to the below at the bottom of the `~/.profile` file.
 
 ```
