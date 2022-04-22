@@ -34,7 +34,14 @@ When instantiating if no admin(s) is designated than the uploader of the contrac
 ### Raw Instantiation of contract
 
 ```
-junod tx wasm instantiate $CW1WHITELIST_CODE_ID '{"admins":["$admin_a", "$admin_b"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+junod tx wasm instantiate $CW1WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>", "<ADMIN_ADDRESS_2>"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+```
+
+You can etiher directly replace `<ADMIN_ADDRESS_1>` with your admin address or you can use the following commands which bakes in the admin addresses if you have setup the environment variables.
+
+```
+junod tx wasm instantiate $CW1WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+
 ```
 
 From the output of the above command you can locate the `contract address` or you can copy the `tx hash` and run a query to locate the contract address
