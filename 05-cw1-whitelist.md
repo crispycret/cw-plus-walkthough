@@ -100,12 +100,10 @@ junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admin
 ```
 
 
-# Next Chapter
-#### [Chapter 06-cw1-subkeys](06-cw1-subkeys.md)
+## [Next Chapter - 06 CW1 Subkeys](06-cw1-subkeys.md)
 
 
-# Previous Chapter
-#### [04-BuildingContracts.md](04-BuildingContracts.md)
+## [Previous Chapter - 04Building Contracts](04-BuildingContracts.md)
 
 
 
