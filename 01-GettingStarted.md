@@ -119,8 +119,8 @@ Always remember when cloning a repo to reformat the url to git@github.com:user/t
 
 # Install Juno
 
-This is taken directly from the Juno Docs with some steps ommitted and added.
-https://docs.junonetwork.io/smart-contracts-and-junod-development/getting-started
+This is taken directly from the [Juno Docs](https://docs.junonetwork.io/smart-contracts-and-junod-development/getting-started) with some steps ommitted and added.
+
 
 ### Download
 Clone the Juno repository. Fetch. Checkout the current `testnet` version.
@@ -136,8 +136,7 @@ git checkout <version-tag>
 #### Determining what version tag to use.
 
 As of writing the `<version-tag>` we will use is `v2.1.0`. 
-Make sure to look at the `Current Github version tag` in the Juno docs.
-https://docs.junonetwork.io/validators/joining-the-testnets#current-testnets
+Make sure to look at the `Current Github version tag` in the [Juno docs](https://docs.junonetwork.io/validators/joining-the-testnets#current-testnets).
 
 The resulting command then is. 
 ```
@@ -197,7 +196,7 @@ sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025ujunox\"/
 
 ## Juno Node Setup
 Were almost done with the setup, just a few more steps.
-Note: We are only setting up a node not a validator. See https://docs.junonetwork.io/validators/joining-the-testnets#setting-up-the-node for how to upgrade your node to a validator.
+Note: We are only setting up a node not a validator. See [Juno Docs](https://docs.junonetwork.io/validators/joining-the-testnets#setting-up-the-node) for how to upgrade your node to a validator.
 
 ### Initialize the chain
 ```
@@ -279,11 +278,11 @@ pagination:
 ```
 
 
-
+[Chapter 02-Accounts](https://github.com/crispycret/cw-plus-walkthrough/blob/main/02-Accounts.md)
 
 
 Crediting Sources:
-* https://docs.junonetwork.io/juno/readme
+* [Offical Juno Documentation](https://docs.junonetwork.io/juno/readme): https://docs.junonetwork.io/juno/readme
  
  
 
