@@ -91,26 +91,6 @@ junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzsl
 ```
 
 
-
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-
-
-# Notes (IGNORE)
-
 # Update admin list to include admin-a
 # juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562
 
@@ -120,21 +100,6 @@ junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzsl
 junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"execute":{"msgs":[{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57","juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9","juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
  
 
-
-## Instantiate Contract
-
-## Query Contract
-
-
-## Update Admins
-### Execute Contract
-
-### Query Contract
-
-
-
-
-
 # Next Chapter
 #### [Chapter 06-cw1-subkeys](06-cw1-subkeys.md)
 
@@ -142,13 +107,28 @@ junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzsl
 # Previous Chapter
 #### [04-BuildingContracts.md](04-BuildingContracts.md)
 
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+
+
+# RAW Notes (IGNORE)
 
 
 
 
 
 
-## RAW Notes
+
 
 
 
