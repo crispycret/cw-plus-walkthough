@@ -4,7 +4,7 @@
 
 This contract allows admins of a contract to be set. If the contract variable `mutable=true` then admins can be added or removed. If `mutable=false` then the admins that were set at the instantiation of the contract will be the only admins allowed for this contract and `mutable` cannot be set to `true`
 
-## Store Contract
+# Store Contract
 
 Storing the contract on the blockchain will result in the output of the contracts id. The `code id` is the index of stored contracts on the blockchain and is important to note down.
 
@@ -20,17 +20,14 @@ junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-p
 ```
 cd artifacts
 
-CW1WHITELIST_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from master --chain-id=testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block --output json -y | jq -r '.txhash')
+CW1WHITELIST_STORE_TX=$(junod tx wasm store cw1_whitelist.wasm  --from master --chain-id=testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block --output json -y | jq -r '.txhash')
 
 CW1WHITELIST_CODE_ID=$(junod query tx $CW1WHITELIST_STORE_TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
 ```
  
  
- 
- 
- ## ___________________________________________________________________________________________________________________________________________________________________________
 
-## Instantiate Contract
+# Instantiate Contract
 To instantiate the contract we must reference the contracts `code id`. The contract instantiation output will contain inside of it the `contract address`. Again, the first command is the raw method to instantiate the contract while the second method stores the `contract address` as a temporary environment variable.
 
 When instantiating if no admin(s) is designated than the uploader of the contract will become the sole admin of the contract. We want to set the variable `mutable` as true so that after instantiation admins can be removed or added by other admins.
@@ -44,7 +41,7 @@ junod tx wasm instantiate $CW1WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>",
 You can etiher directly replace `<ADMIN_ADDRESS_1>` with your admin address or you can use the following commands which bakes in the admin addresses if you have setup the environment variables.
 
 ```
-## Bakes Admin A and Admin B into the contract.
+## Bakes Admin A and Admin B into the contract by escaping double quotes .
 
 junod tx wasm instantiate $CW1WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 
@@ -62,17 +59,18 @@ From the output of the above command you can locate the `contract address` or yo
 ```
 
 #### Store the Contract Address as Environment Variable
+
 Open up the file `~/.profile` and add this line at the bottom
+
 ```
 export CW1WHITELIST_CODE_ID=<Your Code ID>
 export CW1WHITELIST_CONTRACT_ADDRESS=<Your Contracts Address>
 ```
 
- ## ___________________________________________________________________________________________________________________________________________________________________________
 
 
 
-## Query:
+# Query:
 ```
 junod query wasm contract-state smart juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"admin_list":{}}' --chain-id testing
 ```
@@ -81,7 +79,8 @@ junod query wasm contract-state smart juno18egdakntewpnhr9u4wml6rygyszzanapquefk
 junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
 
-##Execute:
+
+# Execute:
 
 ```
 junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzslx4s5t \
@@ -92,6 +91,25 @@ junod tx wasm execute juno18egdakntewpnhr9u4wml6rygyszzanapquefkn4fmywt9uevvwzsl
 ```
 
 
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+
+# Notes (IGNORE)
 
 # Update admin list to include admin-a
 # juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562
