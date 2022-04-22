@@ -38,18 +38,58 @@ We start with 1000000000 ujunox or 100 juno.
 
 ## Resource commands
 ```
-junod tx bank send [from_key_or_address] [to_address] [amount] [flags]
-junod query bank balances [address] [flags]
+junod keys add <keyname>
+junod keys show <keyname> -a
+junod keys delete <keyname>
+
+junod q bank balances <address>
+junod tx bank send <key_or_address> <to_address> <amount_and_denom> [flags]
+junod q tx <TX_HASH>
+
+
+
 ```
 
-#### Example
+
+## Quick Start
+For PRACTICE ONLY use `password` as the password for all accounts. This will speed things along while you learn.
+
+#### Replace Genisis File
+```
+curl https://raw.githubusercontent.com/CosmosContracts/testnets/main/uni-2/genesis.json > ~/.juno/config/genesis.json
 ```
 
-junod tx bank send unsafe-test $MASTER 10000000ujunox
-junod query bank balances $UNSAFE_TEST 
+#### Import Public Unsafe Test Key
+```
+juno keys add unsafe-test --recover
+```
+#### Unsafe Test Key's bip39 mnemonic (Copy)
+```
+clip hire initial neck maid actor venue client foam budget lock catalog sweet steak waste crater broccoli pipe steak sister coyote moment obvious choose
+```
+
+#### Setup and Basic Commands
+###### Creating a Master Account
+```
+junod keys add master
+MASTER=$(junod keys show master -a)
 junod query bank balances $MASTER
-
 ```
+
+###### Sending juno from the unsafe-test account to the new master account.
+```
+junod tx bank send unsafe-test $MASTER 10000000ujunox
+junod q bank balances $MASTER 
+
+UNSAFE_TEST=$(junod keys show unsafe-test -a)
+junod q bank balances $UNSAFE_TEST 
+
+SEND_TX=$(junod tx bank send unsafe-test $MASTER 10000000ujunox | jq -r '.txhash')
+
+junod q tx $SEND_TX
+```
+
+## Using Smart Contract ([CW1 Subkeys](06-cw1-subkeys.md) as Example)
 
 
 # Build All Contracts
@@ -62,6 +102,30 @@ sudo docker run --rm -v "$(pwd)":/code \
   cosmwasm/workspace-optimizer:0.11.3
 ```
 
+
+#### Store Contract
+This can only be done after building the contracts. Navigate to the `artifacts` folder inside the cw-plus repo.
+
+```
+cd artifacts
+
+CW1_SUBKEYS_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from master --chain-id=testing --gas auto --output json -y | jq -r '.txhash')
+CW1_SUBKEYS_CODE_ID=$(junod query tx $CW1WHITELIST_STORE_TX --output json | jq -r '.code')
+```
+
+#### Instantiate Contract
+```
+CW1_SUBKEYS_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{\"admins\":[\"$MASTER\", \"$ADMIN_A\"],\"mutable\":false}" --amount 50000ujunox --label "CW1 example contract" --from test --chain-id testing \
+  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r ".logs[0].events[2].attributes[0].value"))
+```
+
+#### Execute Contract
+```
+```
+
+#### Querying Contract
+```
+```
 
 
 # Walkthough Summary:
