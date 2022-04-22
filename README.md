@@ -6,16 +6,16 @@ Walkthrough each contract in the cw-plus repository. See `01-GettingStarted` for
 # Table Of Contents
 
 ### Setup
-#### [01-GettingStarted.md](01-GettingStarted.md)
-#### [02-Accounts.md](01-GettingStarted.md)
-#### [03-Funding.md](03-Funding.md)
+#### [Chapter 01 Getting Started](01-GettingStarted.md)
+#### [Chapter 02 Accounts](01-GettingStarted.md)
+#### [Chapter 03 Funding](03-Funding.md)
 
 ### Cw-Plus Contracts
-#### [04-BuildingContracts.md](04-BuildingContracts.md)
-#### [05-cw1-whitelist.md](05-cw1-whitelist.md)
-#### [06-cw1-subkeys.md](06-cw1-subkeys.md)
-#### [07-fixed-multisig.md](07-fixed-multisig.md)
-#### [08-flex-multisig.md](08-flex-multisig.md)
+#### [Chapter 04 Building Contracts](04-BuildingContracts.md)
+#### [Chapter 05 CW1 Whitelist](05-cw1-whitelist.md)
+#### [Chapter 06 CW1 Subkeys](06-cw1-subkeys.md)
+#### [Chapter 07 CW3 Fixed Multisig](07-cw3-fixed-multisig.md)
+#### [Chapter 08 CW3 Flex Multisig.md](08-cw3-flex-multisig.md)
 
 
 
