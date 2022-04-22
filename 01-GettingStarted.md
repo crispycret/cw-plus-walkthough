@@ -147,9 +147,9 @@ git checkout v2.1.0
 
 ### Building
 Using this version of the repo we can now build. Make sure you are still in the juno directory.
-'''
+```
 make install
-'''
+```
 
 To confirm that the installation has succeeded and to check the version, you can run:
 
