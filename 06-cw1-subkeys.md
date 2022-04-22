@@ -1,5 +1,9 @@
 # CW1 Subkeys
 
+## Description
+
+This contract incorporartes cw1-whitelist and therefore has all of the same functionality. It expands functionality by allowing allowances of a native token to be set by admins.
+
 ## Store contract
 ```
 junod tx wasm store cw1_subkeys.wasm  --from unsafe-test --chain-id testing \
