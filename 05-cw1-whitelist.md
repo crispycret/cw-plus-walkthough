@@ -16,7 +16,7 @@ For commands that output important information there will be two versions of doi
 Storing the contract on the blockchain will result in the output of the contracts id. The `code id` is the index of stored contracts on the blockchain and is important to note down.
 
 
-#### Method 1
+### Method 1
 
 This method of storing the contract on the blockchain does not track the `code id` of the contract and requires you to find the `code id` from the output.
 
@@ -25,7 +25,9 @@ junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-p
 ```
    
 
-#### Method 2 Store the contracts TX Hash and the CODE ID as temporary environment variables
+### Method 2 
+
+Store the contracts TX Hash and the CODE ID as temporary environment variables
 
 ```
 cd artifacts
@@ -33,15 +35,16 @@ cd artifacts
 CW1_WHITELIST_STORE_TX=$(junod tx wasm store cw1_whitelist.wasm  --from master --chain-id=testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block --output json -y | jq -r '.txhash')
 
 CW1_WHITELIST_CODE_ID=$(junod query tx $CW1_WHITELIST_STORE_TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
+
+echo $CW1_WHITELIST_CODE_ID
 ```
 
-#### Store the Contract Address as Environment Variable For Persistence between sessions (OPTIONAL)
+### Store the Contract Code ID as an Environment Variable For Persistence between sessions (OPTIONAL)
 
-Add these lines to the bottom of `~/.profile`.  
+Add this line to the bottom of `~/.profile` and add your code id. 
 
 ```
-export CW1_WHITELIST_CODE_ID=<Your Code ID>
-export CW1_WHITELIST_CONTRACT_ADDRESS=<Your Contracts Address>
+export CW1_WHITELIST_CODE_ID=<CodeID>
 ```
 
  
@@ -49,36 +52,38 @@ export CW1_WHITELIST_CONTRACT_ADDRESS=<Your Contracts Address>
 # Instantiate Contract
 
 To instantiate the contract we must reference the contracts `code id`. 
-
 The contract instantiation output will contain inside of it the `contract address`. 
-
 
 When instantiating if no admin(s) is designated than the uploader of the contract will become the sole admin of the contract. We want to set the variable `mutable` as true so that after instantiation admins can be removed or added by other admins.
 
-#### Method 1: 
+### Method 1: 
 
-If you did not use `Method 2` to store the contract replace $CW1_WHITELIST_CODE_ID with your contract code id you found from the output.
+If you did not use `Method 2` to store the contract replace `$CW1_WHITELIST_CODE_ID` with your contract `code id` you found from the output.
 
-You can etiher directly replace `<ADMIN_ADDRESS_1>, <Admin_Address_2>` with your admin addresses or you can use `Method 2` bakes in the admin addresses if you have setup the environment variables.
+You can etiher directly replace `<ADMIN_ADDRESS_1>, <Admin_Address_2>` with your admin addresses or you can use `Method 2` which bakes in the admin addresses if you have setup the environment variables.
 
 ```
 junod tx wasm instantiate $CW1_WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>", "<ADMIN_ADDRESS_2>"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
 
-#### Method 2:
+### Method 2:
+
+Bake Admin A and Admin B into the contract and stores the CONTRACT ADDRESS in a temporary variable.
 
 ```
-## Bakes Admin A and Admin B into the contract by escaping double quotes .
-
-junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
-
-
-# Does the same as the above but stores the contract address in the variable CW1WHITELIST_CONTRACT_ADDRESS
-
 CW1_WHITELIST_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r '.logs[0].events[2].attributes[0].value')
+
+echo $CW1_WHITELIST_CONTRACT_ADDRESS
 ```
 
 
+### Store the Contract Address as an Environment Variable For Persistence between sessions (OPTIONAL)
+
+Add this line to the bottom of `~/.profile` and add your contract address.  
+
+```
+export CW1_WHITELIST_CONTRACT_ADDRESS=<ContractAddress>
+```
 
 
 
