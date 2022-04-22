@@ -92,7 +92,7 @@ junod query bank balances $USER_C
 Now that we have accounts funded with juno let's start interacting with the contracts.
 
 
-# [Next Chapter - 04 Building Contracts](04-BuildingContracts.md)
+## [Next Chapter - 04 Building Contracts](04-BuildingContracts.md)
 
 
-# [Previous Chapter - 02 Accounts](02-Accounts.md)
+## [Previous Chapter - 02 Accounts](02-Accounts.md)
