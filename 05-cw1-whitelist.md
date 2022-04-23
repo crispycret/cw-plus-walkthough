@@ -128,8 +128,39 @@ We have stored, initalized and queried the contract. Now it is time to make alte
 
 The functionality of `CW1 Whitelist` is pretty limited. Let's update the admins of the contract. If you want to add an admin you must also include all current admins when updating the contract otherwise that account will no longer be an admin.
 
+Messages as passed as JSON. For us to be able to bake in environment variables to the JSON string we must use double quotes everywhere, which means we must escape double quotes as well. This is sloppy and not perferred. I will show exmplaes of messages in readable JSON, normal JSON, and baked JSON.
+
+### Readable JSON - The message
+```
+{
+   "update_admins": {
+      "admins":[
+         "juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", 
+         "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562",
+         "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"
+      ]
+   }
+}'
+```
+
+### Normal JSON
+```
+'{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}'
+```
+
+### Baked JSON
+```
+"{\"update_admins\": {\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\", \"$ADMIN_C\"]}}"
+```
+
+## Execute Command With Normal JSON
 ```
 junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+```
+
+## Execute Command With Baked JSON
+```
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS "{\"update_admins\": {\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\", \"$ADMIN_C\"]}}" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
 
 
@@ -163,23 +194,11 @@ junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admin
 
 ```
 junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
-  '{"increase_allowance":{"spender":"<key-B>","amount":{"denom":"ujunox","amount":"2000000"}}}' \
+  '{"increase_allowance":{"spender":"<Address-B>","amount":{"denom":"ujunox","amount":"2000000"}}}' \
   --from <admin-key-A> \
   --chain-id <chain-id> \
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
 ```
-
-
-# Update admin list to include admin-a
-```
-junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
-'{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57", "juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}' --from unsafe-test --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
-
-junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"execute":{"msgs":[{"update_admins":{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57","juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9","juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562"]}}]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block 
-```
- 
-
-
 
 
 
@@ -196,22 +215,23 @@ Admins can be added that cannot be removed and admins can be added that can be r
 <Explain What I know Here>
 
 
-#### Readable JSON Of an Execute Message
+#### Execute Message as ReadableJson
+##
 ```
 {
-  execute: {
-    msgs: [{
-      bank: {
-        send: {
-          to_address: "<key-C>",
-          amount: [{
-            denom: "ujunox",
-            amount: "500"
-          }]
-        }
-      }
-    }]
-  }
+   execute: {
+      msgs: [{
+         bank: {
+            send: {
+               to_address: "<key-C>",
+               amount: [{
+                  denom: "ujunox",
+                  amount: "500"
+               }]
+            }
+         }
+      }]
+   }
 };
 ```
 
