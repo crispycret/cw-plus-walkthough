@@ -25,3 +25,7 @@ EXECUTE:
 
 
 
+## [Next Chapter - 08 CW3 Flex Multisig](08-cw3-flex-multisig.md)
+
+
+## [Previous Chapter - 06 CW1 Subkeys.md](06-cw1-subkeys.md)

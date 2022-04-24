@@ -67,17 +67,35 @@ user-c: juno1r9ztg5rxkyekrgmt760qscum5hatvpfy6gf3s5
 vault elbow neck twin garden waste first ridge warfare license split anger swim vague one stool worry oval egg omit supreme child wedding pottery
 ```
 
+
+## Store Important Values as Environment Variables
+
 If you want to take some extra time to store the public keys as environment variables then you should put something similar to the below at the bottom of the `~/.profile` file.
 
 ```
-export unsafe_test=juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y
-export master=juno1p8g3ds77grvvzgkga8jyejcse9ugfm5cp3087v
-export reserve=juno1raqvz3j2aystuq627h674v2x4s2alsyqkwescm
-export admin_a=juno1z5jvxjgayudwad7keejcqkv5fq2xsyctjn9fz2
-export admin_b=juno120mtrgpem5r4lefrxnlgr6kf8g7lgekjrqsum6
-export admin_c=juno1ezfkye82kwxdxp6qczvdvqtrxu5uw84hln3l0d
-export user_a=juno14z5gmxggpff5lpmftwf4n7s2s6vsu3tc4r2wpl
-export user_b=juno1w8g0lsmgvtdhrl6tuw7rcrruma0gzpav3ydvkm
-export user_c=juno1r9ztg5rxkyekrgmt760qscum5hatvpfy6gf3s5
+# JUNO Vars
+export CHAIN_ID="testing"
+export MONIKER_NAME="ValidatorName"
+
+# JUNO Accounts
+export UNSAFE_TEST=juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y
+export MASTER=juno1n2r0urfl5yezwcnfsllst0qsakmfqsy7rf3jdr
+export RESERVE=juno1gl9njgz9s3y82cas7f0rv72qjydm7jx93kf8h6
+export ADMIN_A=juno1rxjp2u9kxf7aqssxzcguuhvemwxlj0rj5tkgyh
+export ADMIN_B=juno1d3pdywztwek0v5sxqa8t6kwq7fkqfrl8y94tqw
+export ADMIN_C=juno1mt5we8478ud82auklx5mcj8mjxjxsh808kqgtm
+export USER_A=juno1f7qvu4gzjc3c7vzxl845shtzwewqdd8hdm7ql7
+export USER_B=juno14dnyyawm4c3pr88fscnqu5ppt5dp0cq7tum5xy
+export USER_C=juno1pz65jurpjjfmhwusqhv8d9mruyyty4845wm767
+
+# Juno Contracts
+...
+...
 ```
+
+
+## [Next Chapter - 03 Funding](03-Funding.md)
+
+
+## [Previous Chapter - 01 Getting Started](01-GettingStarted.md)
 
