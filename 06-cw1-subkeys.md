@@ -18,6 +18,7 @@ CW1_SUBKEYS_CODE_ID=$(junod query tx $CW1_SUBKEYS_STORE_TX --output json | jq -r
 
 ## Instantiate contract
 
+#### Command Structure
 Example using an unspecified `admin, code-id, sender, chain-id`
 ```
 junod tx wasm instantiate <code-id> '{"admins":["<address>"],"mutable":false}' \
@@ -25,6 +26,7 @@ junod tx wasm instantiate <code-id> '{"admins":["<address>"],"mutable":false}' \
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
 
+### Method 1
 Example using `unsafe-test` address as admin with a `code-id, sender, chain-id`
 ```
 junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID '{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y"],"mutable":false}' \
@@ -32,6 +34,7 @@ junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID '{"admins":["juno16g2rahf5846rxzp
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
 
+### Method 2
 Example baking `admin-a, admin-b` addresses as admin with a `code-id, sender, chain-id`
 ```
 junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"],\"mutable\":false}" \
@@ -39,7 +42,7 @@ junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$AD
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
 
-
+### Method 3
 Example baking `admin-a, admin-b` addresses as admin with a `code-id, sender, chain-id` while storing the contract address as an environment variable.
 ```
 CW1_SUBKEYS_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"],\"mutable\":false}" \
@@ -55,6 +58,7 @@ CW1_SUBKEYS_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{
 
 ## Query commands
 
+### Command / Query Structure
 Query commands for cw1-subkeys contract with unspecified contract address 
 
 ```
@@ -65,7 +69,7 @@ junod query wasm contract-state smart <contract-address> '{"all_allowances":{}}'
 junod query wasm contract-state smart <contract-address> '{"allowance":{"spender":"<account-address>"}}' --chain-id testing
 ```
 
-
+### Method 1
 Query commands for cw1-subkeys contract with hard-coded contract address 
 
 ```
@@ -78,7 +82,7 @@ junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcm
 
 ```
 
-
+### Method 2
 Query commands for cw1-subkeys contract with variable contract address and baked account address
 
 ```
