@@ -21,14 +21,18 @@ Built from the [offical juno documentation](https://docs.junonetwork.io/smart-co
 #### [Chapter 08 CW3 Flex Multisig.md](08-cw3-flex-multisig.md)
 
 
+# 
 
-# Things to Know:
+## Follow the Table of Contents, reading further is NOT Required and is meant to be a quick start / summary of the table of contents.
+ 
 
 
-## Denomiations and values
+### Things to Know:
+
+#### Denomiations and values
 The Metric System prefix u is micro or millionths which is 0.000001 of the base
 
-#### UNSURE ABOUT THIS PART
+##### Unsure of this
 
 We start with 1000000000 ujunox or 100 juno.
 
@@ -100,10 +104,8 @@ SEND_TX=$(junod tx bank send unsafe-test $MASTER 10000000ujunox | jq -r '.txhash
 junod q tx $SEND_TX
 ```
 
-## Using Smart Contract ([CW1 Subkeys](06-cw1-subkeys.md) as Example)
 
-
-# Build All Contracts
+## Build All Contracts
 Navigate to the root folder of the cw-plus folder and run the following command to build all contracts at once.
 
 ```
@@ -114,7 +116,10 @@ sudo docker run --rm -v "$(pwd)":/code \
 ```
 
 
-#### Store Contract
+
+
+## Store A Contract
+##### Using Smart Contract ([CW1 Subkeys](06-cw1-subkeys.md) as Example)
 This can only be done after building the contracts. Navigate to the `artifacts` folder inside the cw-plus repo.
 
 ```
@@ -124,19 +129,19 @@ CW1_SUBKEYS_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from master --cha
 CW1_SUBKEYS_CODE_ID=$(junod query tx $CW1WHITELIST_STORE_TX --output json | jq -r '.code')
 ```
 
-#### Instantiate Contract
+## Instantiate A Contract
 ```
 CW1_SUBKEYS_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{\"admins\":[\"$MASTER\", \"$ADMIN_A\"],\"mutable\":false}" --amount 50000ujunox --label "CW1 example contract" --from test --chain-id testing \
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r ".logs[0].events[2].attributes[0].value"))
 ```
 
-#### Querying Contract
+## Querying A Contract
 ```
 junod query wasm contract-state smart $CW1_WHITELIST_CONTRACT_ADDRESS '{"admin_list":{}}' --chain-id testing
 ```
 
 
-#### Execute Contract
+## Send an Execute Message to A Contract
 ```
 junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admins":["<ADDR>", "<ADDR>", "<ADDR>"]}}' --from <key> --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
@@ -155,11 +160,10 @@ This contract allows admins of a contract to be set. If the contract variable `m
 
 ### Store
 ```
-junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 
-# OR
+BASE_OPTIONS="--chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y"
 
-CW1_WHITELIST_STORE_TX=$(junod tx wasm store cw1_whitelist.wasm  --from master --chain-id=testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block --output json -y | jq -r '.txhash')
+CW1_WHITELIST_STORE_TX=$(junod tx wasm store cw1_whitelist.wasm --from master $BASE_OPTIONS --output json | jq -r '.txhash')
 
 CW1_WHITELIST_CODE_ID=$(junod query tx $CW1_WHITELIST_STORE_TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
 
@@ -167,22 +171,26 @@ echo $CW1_WHITELIST_CODE_ID
 ```
 
 ### Instantiate
+Baking `INSTANTIATE_MSG` into the command does not work yet.
 ```
-junod tx wasm instantiate $CW1_WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>", "<ADMIN_ADDRESS_2>"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+INSTANTIATE_MSG=$("{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}")
 
-# OR 
-
-CW1_WHITELIST_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r '.logs[0].events[2].attributes[0].value')
+CW1_WHITELIST_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" $INSTANTIATE_OPTIONS --from master $BASE_OPTIONS --output json | jq -r '.logs[0].events[2].attributes[0].value')
 
 echo $CW1_WHITELIST_CONTRACT_ADDRESS
 ```
 
 ### Query
 ```
+QUERY_MSG='{"admin_list":{}}'
+junod query wasm contract-state smart $CW1_WHITELIST_CONTRACT_ADDRESS $QUERY_MSG --chain-id testing
 ```
 
 ### Execute
 ```
+EXECUTE_MSG = "{\"update_admins\": {\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\", \"$ADMIN_C\"]}}" 
+
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS $EXECUTE_MSG --from admin-a $BASE_OPTIONS 
 ```
 
 
