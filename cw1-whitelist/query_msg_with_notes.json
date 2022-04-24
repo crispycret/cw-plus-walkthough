@@ -78,6 +78,19 @@ can_execute - Checks permissions of the caller on this proxy. If CanExecute retu
 
 
 
+/*
+
+can_execute - Checks permissions of the caller on this proxy. If CanExecute returns true then a call to `Execute` with the same message, before any further state changes, should also succeed.
+ {
+     "BankMsg": {
+        "send": {
+            "amount": "$ref": "#/definitions/CosmosMsg_for_Empty",
+            "amount": "<address>"
+        }
+    }
+ }
+
+*/
 
 
 
