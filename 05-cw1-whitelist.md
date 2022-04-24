@@ -160,12 +160,16 @@ Messages as passed as JSON. For us to be able to bake in environment variables t
 
 ## Execute Command With Normal JSON
 ```
-junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
+   '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562",   "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' \
+   --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
 
 ## Execute Command With Baked JSON
 ```
-junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS "{\"update_admins\": {\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\", \"$ADMIN_C\"]}}" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
+   "{\"update_admins\": {\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\", \"$ADMIN_C\"]}}" \
+   --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
 
 
