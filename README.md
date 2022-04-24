@@ -1,4 +1,4 @@
-# cw-plus-walktrhough
+# CW Plus Walkthrough
 
 Walkthrough each contract in the cw-plus repository. See `01-GettingStarted` for instructions on getting a testnet up and running.  
 
