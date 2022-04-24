@@ -181,8 +181,13 @@ The message`update_admins` has a single `<parameter> -> admins` which is a list 
 ```
 
 
+#### Execute Command With Invalid JSON
+```
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admins":["<addr>", "<addr>"]}}' \
+   --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+```
 
-### Execute Command With Normal JSON
+#### Execute Command With Valid JSON
 ```
 junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
    '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562",  "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' \
@@ -196,6 +201,14 @@ junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
    --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
 
+### Execute Command Using Variables only 
+```
+EXECUTE_FROM="admin-a"
+EXECUTE_OPTIONS="--from $EXECUTE_FROM --chain-id $CHAIN_ID --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y"
+EXECUTE_MSG = "{\"update_admins\": {\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\", \"$ADMIN_C\"]}}" 
+
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS $EXECUTE_MSG $EXECUTE_OPTIONS 
+```
 
 
 
