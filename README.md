@@ -51,8 +51,11 @@ junod q tx <TX_HASH>
 # Show number of contracts stored on-chain
 junod q wasm list-code
 
-# Show the number of instantiations of A contract
+# Show the number of instantiations of A contract as a list of contract addresses
 junod q wasm list-contract-by-code <code-id>
+junod query wasm list-contract-by-code 1
+```
+
 
 
 ```
