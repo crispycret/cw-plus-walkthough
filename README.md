@@ -38,14 +38,21 @@ We start with 1000000000 ujunox or 100 juno.
 
 ## Resource commands
 ```
+# Create, show remove, accounts
 junod keys add <keyname>
 junod keys show <keyname> -a
 junod keys delete <keyname>
 
+# Check balance, send, check tx
 junod q bank balances <address>
 junod tx bank send <key_or_address> <to_address> <amount_and_denom> [flags]
 junod q tx <TX_HASH>
 
+# Show number of contracts stored on-chain
+junod q wasm list-code
+
+# Show the number of instantiations of A contract
+junod q wasm list-contract-by-code <code-id>
 
 
 ```
@@ -119,13 +126,18 @@ CW1_SUBKEYS_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r ".logs[0].events[2].attributes[0].value"))
 ```
 
-#### Execute Contract
-```
-```
-
 #### Querying Contract
 ```
+junod query wasm contract-state smart $CW1_WHITELIST_CONTRACT_ADDRESS '{"admin_list":{}}' --chain-id testing
 ```
+
+
+#### Execute Contract
+```
+junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS '{"update_admins": {"admins":["<ADDR>", "<ADDR>", "<ADDR>"]}}' --from <key> --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+```
+
+
 
 
 # Walkthough Summary:
@@ -139,10 +151,26 @@ This contract allows admins of a contract to be set. If the contract variable `m
 
 ### Store
 ```
+junod tx wasm store cw1_whitelist.wasm  --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+
+# OR
+
+CW1_WHITELIST_STORE_TX=$(junod tx wasm store cw1_whitelist.wasm  --from master --chain-id=testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block --output json -y | jq -r '.txhash')
+
+CW1_WHITELIST_CODE_ID=$(junod query tx $CW1_WHITELIST_STORE_TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
+
+echo $CW1_WHITELIST_CODE_ID
 ```
 
 ### Instantiate
 ```
+junod tx wasm instantiate $CW1_WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>", "<ADMIN_ADDRESS_2>"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+
+# OR 
+
+CW1_WHITELIST_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r '.logs[0].events[2].attributes[0].value')
+
+echo $CW1_WHITELIST_CONTRACT_ADDRESS
 ```
 
 ### Query
