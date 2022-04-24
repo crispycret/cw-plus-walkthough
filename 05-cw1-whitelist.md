@@ -135,10 +135,32 @@ The functionality of `CW1 Whitelist` is pretty limited. Let's update the admins 
 
 Messages as passed as JSON. For us to be able to bake in environment variables to the JSON string we must use double quotes everywhere, which means we must escape double quotes as well. This is sloppy and not perferred. I will show exmplaes of messages in readable JSON, normal JSON, and baked JSON.
 
-### Readable JSON - The message
+### Execute Command Structure
 ```
-{
-   "update_admins": {
+junod tx wasm execute <contract-address> <execute_msg> --from <key> --chain-id <chain-id>  [options]
+```
+
+## Execute Message Structure
+
+```
+'{"<action>": {"<parameter>": "<value>" }}' 
+```
+
+The `<value>` field can be a `string, integer, array, or an object` defined by the type of the parameter located in the contracts schema for this message as well as being a valid json type.
+
+
+## Update Admins
+The only execute message the `cw1-whitelist` contract defines is that of the `update_admins` message which updates the state of the contracts admin list.
+
+
+### Update Admins - Execute Message Structure
+We want to message about updating the admins list: `<action> -> update_admins`.
+
+The message`update_admins` has a single `<parameter> -> admins` which is a list of addresses the contract should use as admins.
+
+#### Readable JSON is NOT VALID
+```
+'{"update_admins": {
       "admins":[
          "juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", 
          "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562",
@@ -148,24 +170,26 @@ Messages as passed as JSON. For us to be able to bake in environment variables t
 }'
 ```
 
-### Normal JSON
+#### Valid JSON
 ```
 '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562", "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}'
 ```
 
-### Baked JSON
+#### Valid JSON baked using environment variables
 ```
 "{\"update_admins\": {\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\", \"$ADMIN_C\"]}}"
 ```
 
-## Execute Command With Normal JSON
+
+
+### Execute Command With Normal JSON
 ```
 junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
-   '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562",   "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' \
+   '{"update_admins": {"admins":["juno1uzaa2sexws4gatetng5ke0lrqpfy89khd990u9", "juno10pfa9a5l8sy0czqjy7tlquyhrmjn90yhr50562",  "juno1ayw38tapu8wd3l57fwdhwekcymhcueh59p2pa8"]}}' \
    --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
 ```
 
-## Execute Command With Baked JSON
+### Execute Command With Baked JSON
 ```
 junod tx wasm execute $CW1_WHITELIST_CONTRACT_ADDRESS \
    "{\"update_admins\": {\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\", \"$ADMIN_C\"]}}" \
