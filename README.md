@@ -4,7 +4,7 @@ Walkthrough each contract in the cw-plus repository. See `01-GettingStarted` for
 
 This repository is sloppy as I am still learning and organizing the new information that I learn. I am experimenting with organizing the information in different patterns as I do not yet know how to present this data. Expect major changes frequently if using this resource.  
 
-
+Built from the [offical juno documentation](https://docs.junonetwork.io/smart-contracts-and-junod-development/tutorial-cw1/download-compile-store) and other crediting sources at the bottom.
 
 # Table Of Contents
 
