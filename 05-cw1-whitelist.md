@@ -69,7 +69,9 @@ If you did not use `Method 2` to store the contract replace `$CW1_WHITELIST_CODE
 You can etiher directly replace `<ADMIN_ADDRESS_1>, <Admin_Address_2>` with your admin addresses or you can use `Method 2` which bakes in the admin addresses if you have setup the environment variables.
 
 ```
-junod tx wasm instantiate $CW1_WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>", "<ADMIN_ADDRESS_2>"], "mutable":true}' --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+junod tx wasm instantiate $CW1_WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>", "<ADMIN_ADDRESS_2>"], "mutable":true}' \
+   --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing \
+   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
 
 ### Method 2:
@@ -77,7 +79,10 @@ junod tx wasm instantiate $CW1_WHITELIST_CODE_ID '{"admins":["<ADMIN_ADDRESS_1>"
 Bake Admin A and Admin B into the contract and stores the CONTRACT ADDRESS in a temporary variable.
 
 ```
-CW1_WHITELIST_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y --output json | jq -r '.logs[0].events[2].attributes[0].value')
+CW1_WHITELIST_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_WHITELIST_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"], \"mutable\":true}" \
+   --amount 50000ujunox --label "cw1-whitelist" --from master --chain-id testing \
+   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y \
+   --output json | jq -r '.logs[0].events[2].attributes[0].value')
 
 echo $CW1_WHITELIST_CONTRACT_ADDRESS
 ```
