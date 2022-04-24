@@ -58,8 +58,6 @@ junod query wasm list-contract-by-code 1
 
 
 
-```
-
 
 ## Quick Start
 For PRACTICE ONLY use `password` as the password for all accounts. This will speed things along while you learn.
