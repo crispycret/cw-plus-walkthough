@@ -1,5 +1,8 @@
 # cw-plus-walktrhough
-Walkthrough each contract in the cw-plus repository. See `01-GettingStarted` for instructions on getting a testnet up and running. 
+
+Walkthrough each contract in the cw-plus repository. See `01-GettingStarted` for instructions on getting a testnet up and running.  
+
+This repository is sloppy as I am still learning and organizing the new information that I learn. I am experimenting with organizing the information in different patterns as I do not yet know how to present this data. Expect major changes frequently if using this resource.  
 
 
 
