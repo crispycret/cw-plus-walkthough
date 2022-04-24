@@ -1,5 +1,6 @@
 # CW1 Whitelist
 
+Mofided and Extended from the [offical juno documentation](https://docs.junonetwork.io/smart-contracts-and-junod-development/tutorial-cw1/download-compile-store)
 
 ## Description
 
