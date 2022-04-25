@@ -14,6 +14,13 @@ junod tx wasm store cw1_subkeys.wasm  --from $MASTER --chain-id testing --gas-pr
 ```
 CW1_SUBKEYS_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm --from master $BASE_OPTIONS --output json | jq -r '.txhash')
 CW1_SUBKEYS_CODE_ID=$(junod query tx $CW1_SUBKEYS_STORE_TX --output json | jq -r '.code')
+
+# OR
+
+CW1_SUBKEYS_CODE_ID=$(junod tx wasm store cw1_subkeys.wasm --from master $BASE_OPTIONS --output json | jq -r '.logs[0].events[-1].attributes[0].value')
+
+
+echo $CW1_SUBKEYS_CODE_ID
 ```
 
 ## Instantiate contract
@@ -95,15 +102,80 @@ junod query wasm contract-state smart $CW1_SUBKEYS_CONTRACT_ADDRESS "{\"allowanc
 
 
 ## Execute commands
+#### Execute Command
 ```
-junod tx wasm execute juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 \
-  '{"increase_allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl","amount":{"denom":"ujunox","amount":"2000000"}}}' \
-  --from juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y \
-  --chain-id testing \
-  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block
+junod tx wasm execute <contract-address> <execute-msg> --from <key> --chain-id <chain-id> [options]
+```
+
+#### Execute Message Structure
+
+```
+'{
+    "<action>": {
+        "<param>":"<value>",
+        "<param>": {
+            "<param>":"<value>",
+            "<param>":"<value>"
+        }
+    }
+}'
+
+'{"<action>":{"<param>":"<value>","<param>": {"<param>":"<value>","<param>":"<value>"}}}'
+```
+
+#### Execute Message as Readable JSON (INVALID)
+```
+'{
+    "increase_allowance": {
+        "spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl",
+        "amount": {
+            "denom":"<value>",
+            "amount":"2000000"
+        }
+    }
+}'
+```
+
+#### Execute Message
+
+```
+'{"increase_allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl","amount":{"denom":"ujunox","amount":"2000000"}}}' 
+```
 
 
-junod query wasm contract-state smart juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8 '{"allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl"}}' --chain-id testing
+### Execute Command
+```
+echo $ADMIN_A 
+
+# Use the value of `$ADMIN_A` as the `spender` address
+EXECUTE_MSG='{"increase_allowance":{"spender":"<address>","amount":{"denom":"ujunox","amount":"2000000"}}}'
+
+# OR USE
+EXECUTE_MSG="{\"increase_allowance\":{\"spender\":\"$ADMIN_A\",\"amount\":{\"denom\":\"ujunox\",\"amount\":\"2000000\"}}}"
+
+
+junod tx wasm execute $CW1_SUBKEYS_CONTRACT_ADDRESS $EXECUTE_MSG --from admin-b $BASE_OPTIONS
+```
+
+### Execute Command: Allocating `ucosm` instead of `ujunox`
+
+```
+EXECUTE_MSG="{\"increase_allowance\":{\"spender\":\"$ADMIN_A\",\"amount\":{\"denom\":\"ucosm\",\"amount\":\"2000000\"}}}"
+
+
+junod tx wasm execute $CW1_SUBKEYS_CONTRACT_ADDRESS $EXECUTE_MSG --from admin-b $BASE_OPTIONS
+```
+
+
+# EXTRA NOTES (IGNORE)
+```
+junod query wasm contract-state smart $CW1_SUBKEYS_CONTRACT_ADDRESS '{"allowance":{"spender":"juno1rm8eja6cczs0y0y6vwy9tnufe74t785ffu6cfl"}}' --chain-id testing
+
+# OR
+
+QUERY_MSG="{\"allowance\":{\"spender\":\"$ADMIN_A\"}}"
+junod query wasm contract-state smart $CW1_SUBKEYS_CONTRACT_ADDRESS $QUERY_MSG --chain-id testing
+
 
 
 
