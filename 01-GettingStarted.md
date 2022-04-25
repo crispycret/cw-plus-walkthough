@@ -1,5 +1,7 @@
 # CW Plus Walkthrough Guid
 
+### Extension of the [juno offical docs](https://github.com/crispycret/cw-plus-walkthrough), and the [cw-plus repository](https://github.com/CosmWasm/cw-plus)
+
 Blockchain technology has obviously captured the attention of a substantial number of people, some of whom are aspiring developers, a group that I belong to. But, at least for me, the learning curve is equivalent to the Mongells trying to overcome great wall of China. 
  
 A little background first. I fit in the category of coders who are self-taught and as a self-taught coder there is a large void in my understanding. As an example, I have always known that development required the use of an array of interconnected frameworks that make a system function. However, what I did not know is that this was called a tech stack... 
