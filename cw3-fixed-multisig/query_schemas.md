@@ -4,9 +4,7 @@
 threshold - "Return ThresholdResponse"
 ```
 {
-    "threshold" : {
-
-    }
+    "threshold" : {}
 }
 ```
 
@@ -27,8 +25,6 @@ list_proposals - Returns ProposalListResponse
     "list_proposals": {
         "limit": 1,
         "start_after": 1,
-
-
     }
 }
 ```
