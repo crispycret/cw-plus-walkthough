@@ -12,8 +12,8 @@ junod tx wasm store cw1_subkeys.wasm  --from $MASTER --chain-id testing --gas-pr
 
 ## Or Storing while storing TX and Contrant ID Code
 ```
-CW1_SUBKEYS_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm  --from $MASTER --chain-id=testing --gas auto --output json -y | jq -r '.txhash')
-CW1_SUBKEYS_CODE_ID=$(junod query tx $CW1_SUBKEYS_STORE_TX --output json | jq -r '.logs[0].events[-1].attributes[0].value')
+CW1_SUBKEYS_STORE_TX=$(junod tx wasm store cw1_subkeys.wasm --from master $BASE_OPTIONS --output json | jq -r '.txhash')
+CW1_SUBKEYS_CODE_ID=$(junod query tx $CW1_SUBKEYS_STORE_TX --output json | jq -r '.code')
 ```
 
 ## Instantiate contract
@@ -21,7 +21,7 @@ CW1_SUBKEYS_CODE_ID=$(junod query tx $CW1_SUBKEYS_STORE_TX --output json | jq -r
 #### Command Structure
 Example using an unspecified `admin, code-id, sender, chain-id`
 ```
-junod tx wasm instantiate <code-id> '{"admins":["<address>"],"mutable":false}' \
+junod tx wasm instantiate <code-id> '{"admins":["<address>"],"mutable":true}' \
   --amount 50000ujunox --label "CW1 example contract" --from <your-key> --chain-id <chain-id> \
   --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
 ```
@@ -29,25 +29,22 @@ junod tx wasm instantiate <code-id> '{"admins":["<address>"],"mutable":false}' \
 ### Method 1
 Example using `unsafe-test` address as admin with a `code-id, sender, chain-id`
 ```
-junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID '{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y"],"mutable":false}' \
-  --amount 50000ujunox --label "CW1 example contract" --from master --chain-id testing \
-  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID '{"admins":["juno16g2rahf5846rxzp3fwlswy08fz8ccuwk03k57y"],"mutable":true}' \
+  --amount 50000ujunox --label "CW1 example contract" --from master $BASE_OPTIONS
 ```
 
 ### Method 2
 Example baking `admin-a, admin-b` addresses as admin with a `code-id, sender, chain-id`
 ```
-junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"],\"mutable\":false}" \
-  --amount 50000ujunox --label "CW1 example contract" --from master --chain-id testing \
-  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"],\"mutable\":true}" \
+  --amount 50000ujunox --label "CW1 example contract" --from master $BASE_OPTIONS
 ```
 
 ### Method 3
 Example baking `admin-a, admin-b` addresses as admin with a `code-id, sender, chain-id` while storing the contract address as an environment variable.
 ```
 CW1_SUBKEYS_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW1_SUBKEYS_CODE_ID "{\"admins\":[\"$ADMIN_A\", \"$ADMIN_B\"],\"mutable\":false}" \
-  --amount 50000ujunox --label "CW1 example contract" --from master --chain-id testing \
-  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y \
+  --amount 50000ujunox --label "CW1 example contract" --from master $BASE_OPTIONS \
   --output json | jq -r '.logs[0].events[2].attributes[0].value')
 ```
 
