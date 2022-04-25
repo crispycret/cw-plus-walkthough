@@ -7,6 +7,7 @@ You can download the `cw-plus` contracts from the [offical github repoistory](ht
 git clone https://github.com/CosmWasm/cw-plus.git
 
 # OR
+
 git clone git@github.com:CosmWasm/cw-plus.git
 ```
 
@@ -15,6 +16,8 @@ git clone git@github.com:CosmWasm/cw-plus.git
 We could build each contract separtely but it is easier to build them all at once. 
 
 ```
+cd cw-plus
+
 sudo docker run --rm -v "$(pwd)":/code \
   --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
   --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
