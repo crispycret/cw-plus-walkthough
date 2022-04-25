@@ -1,24 +1,38 @@
-CW3 - Fixed Multsig
+# CW3 Fixed Multsig
 
 
 
 
-STORE:
+# STORE:
 
-junod tx wasm store cw3_fixed_multisig.wasm --from master --chain-id testing \
-  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+```
+BASE_OPTIONS="--chain-id testing --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y"
+
+# Manually look for Code ID value
+junod tx wasm store cw3_fixed_multisig.wasm --from master $BASE_OPTIONS --output json | jq -r ''
+
+# OR
+
+CW3_FIXED_MULTISIG_CODE_ID=$(\
+  junod tx wasm store cw3_fixed_multisig.wasm --from master $BASE_OPTIONS \
+  --output json | jq -r '.logs[0].events[-1].attributes[0].value')
   
-junod tx wasm store cw1_subkeys.wasm  --from test --chain-id testing \
-  --gas-prices 0.1ujunox --gas auto --gas-adjustment 1.3 -b block -y
+echo $CW3_FIXED_MULTISIG_CODE_ID
+```
 
 
 
+# INSTANTIATE:
+```
+INSTANTIATE_MSG=""
 
-INSTANTIATE:
+CW3_FIXED_MULTISIG_CONTRACT_ADDRESS=$()
+```
 
-QUERY:
 
-EXECUTE:
+# QUERY:
+
+# EXECUTE:
 
 
 
