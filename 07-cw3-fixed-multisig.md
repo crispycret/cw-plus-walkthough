@@ -78,6 +78,21 @@ CW3_FIXED_MULTISIG_CONTRACT_ADDRESS=$(junod tx wasm instantiate $CW3_FIXED_MULTI
 ```
 
 
+## (Optional) Store the variable as a persisent environment variable
+For the purposes of testing I like to store the cotract address that I will be using as an environment variable that persists through multiple session. Add the following line with your contract address to the bottom `~/.profile`
+
+#### Display then copy your contract address
+```
+echo $CW3_FIXED_MULTISIG_CONTRACT_ADDRESS
+```
+
+#### Store the outputed value in `~/.profile`
+```
+CW3_FIXED_MULTISIG_CONTRACT_ADDRESS=<contract address>
+```
+
+
+
 # QUERY:
 
 ### Query Instantiations of Contracts
