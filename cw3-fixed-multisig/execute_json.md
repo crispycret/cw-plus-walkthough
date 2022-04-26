@@ -2,13 +2,7 @@
 # proposal
 
 ```
-{
-  "propose": {
-    "description": "",
-    "msgs": "",
-    "title": ""
-  }
-}
+'{"propose": {"description": "Test Proposal Description", "msgs": "[]", "title": "Test Proposal"}}'
 ```
 
 ### with optional arguments
