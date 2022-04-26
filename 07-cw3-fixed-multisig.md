@@ -168,8 +168,46 @@ junod query wasm contract-state smart $CW3_FIXED_MULTISIG_CONTRACT_ADDRESS '{"vo
 The CW3 Fixed Multisig contract gives us enough functionallity to finally start to experimenting with major blockchain fundementals. In this case limited goverance.
 While instantiating the contract we decieded that their will be 3 admins, each with a weight of 1 and that a weight of 2 is required to pass a proposal. Let's dimenstrate that now with a proposal that does nothing.
 
+### Execute Messages for cw3-fixed-multisig
+```
+
+# submit proposal
+
+'{"propose": {"description": "Test Proposal Description", "msgs": "[]", "title": "Test Proposal"}}'
+
+### schema showing optional arguments
+{
+  "propose": {
+    "description": "",
+    "msgs": [CosmosMsg_for_Empty],
+    "title": "",
+    "latest": : Expiration (One Of) -> [
+        {"at_height": BlockHeight -> 200},
+        {"at_time":[] Timestamp -> UINT64: A point in time in nanosecond precision. },
+        {"never": {}}},
+    ]
+  }
+}
+
+
+##### latest Schema
+"latest": {
+    "anyOf": [
+        {
+            "$ref": "#/definitions/Expiration"
+        },
+        {
+            "type": "null"
+        }
+    ]
+},
+```
+
+
+# Create a proposal, view it and vote on it.
+
 ## Submit an empty proposal
-We know the proposal does nothing because it has no messages.
+We know the proposal we are about to submit does nothing because it has no messages.
 
 ```
 junod tx wasm execute $CW3_FIXED_MULTISIG_CONTRACT_ADDRESS \
@@ -177,10 +215,12 @@ junod tx wasm execute $CW3_FIXED_MULTISIG_CONTRACT_ADDRESS \
   --from admin-a $BASE_OPTIONS
 ```
 
-### Lookup the proposal
+### Lookup the proposal we have just submitted
 ```
 junod query wasm contract-state smart $CW3_FIXED_MULTISIG_CONTRACT_ADDRESS '{"proposal":{"proposal_id":1}}' --chain-id testing
 ```
+
+
 
 
 
