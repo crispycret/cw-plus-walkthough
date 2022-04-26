@@ -42,13 +42,17 @@
 },
 ```
 
+```
+{
+  "propose": {
+    "description": "Testing",
+    "msgs": [],
+    "title": "Testing Proposal",
+  }
+}
+```
 
-
-
-
-
-
-
+junod tx wasm execute $CW3_FIXED_MULTISIG_CONTRACT_ADDRESS '{"propose":{"description":"Testing","msgs":[],"title":"Testing Proposal"}}' --from admin-a $BASE_OPTIONS
 
 
 
