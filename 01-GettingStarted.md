@@ -25,8 +25,6 @@ Cooming Soon. A few resources I need to compile to make this as straight forward
 
 
 
-
-
 ## WSL2 Installation
 As of now the `WSL2 Installation` steps aren't tested. They are built from resources and memory. I will take some time to walk through these steps myself on a fresh machine to test and make revisions where nessecary.
 
@@ -35,6 +33,59 @@ https://pureinfotech.com/install-windows-subsystem-linux-2-windows-10/
 CURRENT RESOURCE LIST (Will be complied into this section
 https://stackoverflow.com/questions/46413149/share-folder-between-windows-and-wsl
 
+
+# WSL2 Install
+
+* Windows 10 Pros
+* Hyper-V Support
+
+Check system settings, 4 last fields should be `Hyper V  Yes` if supported or if your last setting should be ``.
+
+
+Enable Hyper V in yout bios if available.
+
+
+Windows Features
+
+`Hyper-V`
+
+```
+wsl --install
+```
+
+```
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+
+Reboot
+
+
+##Upgrade WSL to WSL2
+
+Download and install the [WSL2 Kernel update](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+```
+wsl --set-default-version 2
+```
+
+Show WSL versions
+```
+wsl --list --verbose 
+```
+
+
+# Install Docker
+
+Download [Docker Desktop](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=dd-smartbutton&utm_location=module) for Windows.
+
+
+
+
+
+
+
+## If you only have the root user, add a user with sudo privileges.
+https://winaero.com/add-remove-sudo-users-wsl-linux-windows-10/
 
 
 
@@ -54,8 +105,34 @@ sudo apt-get install make build-essential gcc git jq chrony -y
 
 
 
-### SSH Setup
+## SSH Setup
 
+The first step to setup SSH is the removal of the current version of ssh.
+
+### Remove SSH
+sudo apt remove openssh-server -y
+
+## Re-Install SSH
+sudo apt install openssh-server -y
+
+## Change Port to 2222
+
+```
+sudo nano /etc/ssh/sshd_config
+```
+
+Find the parameter `PORT` and set it's value to 2222
+```
+...
+PORT=2222
+...
+```
+
+## Enable SSH
+```
+sudo service ssh start
+sudo service ssh status
+```
 
 
 ### Install Docker
@@ -82,7 +159,11 @@ rustup target list --installed
 rustup target add wasm32-unknown-unknown
 ```
 
-
+#### Restart shell.
+For these changes to take place either restart your shell or run the following command.
+```
+source ~/.cargo/.env
+```
 
 
 ### Install Go
@@ -99,7 +180,7 @@ sudo rm -rf /usr/local/go
 
 Install GO
 ```
-sudo tar -C /usr/local -xzf go1.17.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.17.1.linux-amd64.tar.gz
 ```
 
 After that, open your users .profile file `nano ~/.profile` and add the following lines at the bottom of the file.
