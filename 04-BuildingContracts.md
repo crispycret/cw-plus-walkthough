@@ -13,7 +13,7 @@ git clone git@github.com:CosmWasm/cw-plus.git
 
 
 # Building Contracts
-We could build each contract separtely but it is easier to build them all at once. 
+We could build each contract separtely but it is easier to build them all at once. The optimizer may change with version releases. If you recieve an error while compiling check the [offical cw-plus repo](https://github.com/CosmWasm/cw-plus)
 
 ```
 cd cw-plus
@@ -21,7 +21,7 @@ cd cw-plus
 sudo docker run --rm -v "$(pwd)":/code \
   --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
   --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
-  cosmwasm/workspace-optimizer:0.11.3
+  cosmwasm/workspace-optimizer:0.12.4
 ```
 
 This will take a while.
